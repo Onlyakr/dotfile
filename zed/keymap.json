@@ -1,0 +1,20 @@
+[
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      "cmd-alt-c": [
+        "agent::NewExternalAgentThread",
+        { "agent": { "custom": { "name": "claude-acp" } } },
+      ],
+      "space f f": "file_finder::Toggle",
+      "space e": "workspace::ActivatePaneLeft",
+      "space s v": "pane::SplitVertical",
+      "space s h": "pane::SplitHorizontal",
+      "space b p": "pane::ActivatePreviousItem",
+      "space b n": "pane::ActivateNextItem",
+      "space f g": "pane::DeploySearch",
+      "space x": "diagnostics::Deploy",
+      "space c a": "editor::ToggleCodeActions",
+    },
+  },
+]

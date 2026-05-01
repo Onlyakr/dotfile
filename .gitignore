@@ -1,0 +1,13 @@
+*
+!*/
+!ghostty/**
+!nvim/**
+!zed/**
+!ccstatusline/**
+!.gitignore
+
+**/.DS_Store
+**/node_modules/
+**/settings_backup.json
+**/*.mdb
+**/settings.local.json

@@ -1,0 +1,108 @@
+{
+  "version": 3,
+  "lines": [
+    [
+      {
+        "id": "1",
+        "type": "tokens-total",
+        "color": "brightWhite"
+      },
+      {
+        "id": "815027e0-d2e3-4e10-976e-7c755bb75ae0",
+        "type": "separator"
+      },
+      {
+        "id": "bb5dea7a-2f8d-4c05-8665-e750a6ed5866",
+        "type": "tokens-input",
+        "color": "brightWhite"
+      },
+      {
+        "id": "05a2f694-e3aa-4f89-86c6-c9a0424acc3c",
+        "type": "separator"
+      },
+      {
+        "id": "4549cb60-fb2f-42db-b228-427e18cd958f",
+        "type": "tokens-output",
+        "color": "brightWhite"
+      },
+      {
+        "id": "70f8188d-0ffc-4d69-b25d-58bf7b73b33f",
+        "type": "separator"
+      },
+      {
+        "id": "1f6ea5ce-a6c5-460d-9512-32bed7b426f6",
+        "type": "tokens-cached",
+        "color": "brightWhite"
+      },
+      {
+        "id": "9f56380e-b029-4869-9f70-627910029ba7",
+        "type": "separator"
+      },
+      {
+        "id": "9272a5d8-88b2-4703-b9b2-1d92f4d1f6f2",
+        "type": "context-percentage",
+        "color": "brightWhite"
+      },
+      {
+        "id": "4",
+        "type": "separator"
+      },
+      {
+        "id": "d55b8bf5-20c8-4465-82df-6effee39fceb",
+        "type": "context-length",
+        "color": "brightWhite"
+      }
+    ],
+    [
+      {
+        "id": "53ccc799-6996-4ce1-a07b-7b3eef584046",
+        "type": "session-clock",
+        "color": "brightWhite"
+      },
+      {
+        "id": "eb0a0498-6c8d-4d26-b96b-f0aa2ac9285c",
+        "type": "separator"
+      },
+      {
+        "id": "ff799374-7b04-4d64-b529-a64dc1dd0c09",
+        "type": "session-usage",
+        "color": "brightWhite"
+      }
+    ],
+    [
+      {
+        "id": "6dca4cb2-696f-458c-a0fd-402dd8141bc8",
+        "type": "current-working-dir",
+        "color": "brightWhite"
+      },
+      {
+        "id": "3ff941bc-4b82-4376-990f-e4f88099bddc",
+        "type": "separator"
+      },
+      {
+        "id": "930922c8-a391-460b-b330-e58da5c4185c",
+        "type": "git-branch",
+        "color": "brightWhite"
+      }
+    ]
+  ],
+  "flexMode": "full-minus-40",
+  "compactThreshold": 60,
+  "colorLevel": 2,
+  "inheritSeparatorColors": false,
+  "globalBold": false,
+  "minimalistMode": false,
+  "powerline": {
+    "enabled": false,
+    "separators": [
+      ""
+    ],
+    "separatorInvertBackground": [
+      false
+    ],
+    "startCaps": [],
+    "endCaps": [],
+    "autoAlign": false,
+    "continueThemeAcrossLines": false
+  }
+}
