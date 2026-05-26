@@ -15,6 +15,7 @@ return {
           "html",
           "jsonls",
           "lua_ls",
+          "gopls",
         },
         automatic_installation = true,
       })
@@ -104,7 +105,7 @@ return {
         },
       })
 
-      vim.lsp.enable({ "ts_ls", "eslint", "cssls", "html", "jsonls", "lua_ls" })
+      vim.lsp.enable({ "ts_ls", "eslint", "cssls", "html", "jsonls", "lua_ls", "gopls" })
     end,
   },
 }
