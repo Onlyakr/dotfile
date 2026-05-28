@@ -1,15 +1,15 @@
 {
   "cli_default_open_behavior": "new_window",
   "collaboration_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "agent_servers": {
     "codex-acp": {
-      "type": "registry"
+      "type": "registry",
     },
     "claude-acp": {
-      "type": "registry"
-    }
+      "type": "registry",
+    },
   },
   "agent": {
     "dock": "right",
@@ -146,8 +146,8 @@
   "vim_mode": true,
   "icon_theme": {
     "mode": "dark",
-    "light": "Zed (Default)",
-    "dark": "Zed (Default)",
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Mocha",
   },
   "theme": {
     "mode": "dark",
@@ -157,6 +157,10 @@
   },
   "experimental.theme_overrides": {
     "background.appearance": "blurred",
+    "syntax": {
+      "comment": { "font_style": "italic" },
+      "keyword": { "font_style": "italic" },
+    },
   },
   "theme_overrides": {
     "Rosé Pine Moon": {
@@ -228,6 +232,7 @@
       "toolbar.background": "#10101000",
       "tab_bar.background": "#10101000",
       "tab.inactive_background": "#10101000",
+      // accent options: mauve #CBA6F7 | sapphire #74C7EC | teal #94E2D5 | lavender #B4BEFE
       "tab.active_background": "#CBA6F720",
       "panel.background": "#10101000",
       "editor.background": "#10101000",
