@@ -44,7 +44,8 @@ git revert cb04c29
 - **ccstatusline** and **Claude Code** don't have their own mono theme — they use
   named ANSI colors that resolve through ghostty's palette, so they follow ghostty
   automatically once Claude Code is on `dark-ansi`.
-- **zed file icons** stay Catppuccin (colored). For strict mono, set
-  `"project_panel": { "file_icons": false }` or install a mono icon theme.
+- **zed icons** use the `Min Icons` theme (grey `#999999`). Revert to Catppuccin:
+  `"icon_theme": { "dark": "Catppuccin Mocha" }`. To drop icons entirely, set
+  `"project_panel": { "file_icons": false, "folder_icons": false }`.
 - **wallpaper** is OS-level (not in this repo). A B&W manga-style wall makes the
   blur read best.

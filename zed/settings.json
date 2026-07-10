@@ -135,8 +135,8 @@
     "bold_folder_labels": false,
     "auto_fold_dirs": false,
     "auto_reveal_entries": true,
-    "folder_icons": false,
-    "file_icons": false,
+    "folder_icons": true,
+    "file_icons": true,
     "git_status": false,
     "button": true,
     "default_width": 300.0,
@@ -147,7 +147,8 @@
   "icon_theme": {
     "mode": "dark",
     "light": "Catppuccin Latte",
-    "dark": "Catppuccin Mocha",
+    // revert: "dark": "Catppuccin Mocha",
+    "dark": "Min Icons",
   },
   "theme": {
     "mode": "dark",
