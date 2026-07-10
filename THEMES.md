@@ -56,6 +56,12 @@ The nvim dashboard uses the same file.
   (ASCII) or `logo-src.<img>` (photo) and run `cd fastfetch && ./gen-logo.sh` —
   note this **overwrites** the pasted `cat.txt`. Needs `chafa` + `imagemagick`.
   Tune `SIZE` / `BLUR` there; keep `config.jsonc` `width`/`height` in sync.
+- **Resize an existing braille cat:** `./fit-cat.sh <rows> [file]` (add `COLS=<n>`
+  to stretch wider). Reconstructs the bitmap from the dots and re-dithers — lossless.
+- **Responsive to window size:** `ff.sh` scales the cat to the terminal height on
+  each run (fastfetch can't resize a text logo itself). Master = `cat-src.txt`,
+  output cached per row-count. Alias it: `alias ff='~/.config/fastfetch/ff.sh'`.
+  Plain `fastfetch` still uses the fixed `config.jsonc` logo.
 
 ## Notes
 
