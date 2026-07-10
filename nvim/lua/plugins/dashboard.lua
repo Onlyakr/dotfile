@@ -7,18 +7,13 @@ return {
 			local alpha = require("alpha")
 			local dashboard = require("alpha.themes.dashboard")
 
-			-- Cat ASCII art header
-			dashboard.section.header.val = {
-				"                                        ",
-				"    /\\_____/\\                           ",
-				"   /  o   o  \\                          ",
-				"  ( ==  ^  == )      N E O V I M        ",
-				"   )         (                          ",
-				"  (           )                         ",
-				" ( (  )   (  ) )                        ",
-				"(__(__)___(__)__)                        ",
-				"                                        ",
-			}
+			-- Cat dot-art header (braille), read from a file so the art can be
+			-- regenerated independently — see ~/.config/fastfetch/gen-logo.sh.
+			local cat = vim.fn.filereadable(vim.fn.expand("~/.config/nvim/cat.txt")) == 1
+					and vim.fn.readfile(vim.fn.expand("~/.config/nvim/cat.txt"))
+				or { "  /\\_/\\  ", " ( o.o ) ", "  > ^ <  " }
+			vim.list_extend(cat, { "", "N E O V I M" })
+			dashboard.section.header.val = cat
 
 			-- Buttons
 			dashboard.section.buttons.val = {

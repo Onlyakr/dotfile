@@ -39,6 +39,19 @@ git revert cb04c29
 - `nvim/lua/config/mono.lua` — hand-rolled colorscheme matching the ghostty ramp
 - tmux `@thm_*` remap block in `tmux/tmux.conf`
 
+## fastfetch cat logo
+
+Greyscale braille dot-art cat, rendered from an image. Same art feeds the nvim
+dashboard header (`nvim/cat.txt`).
+
+- Swap the cat: drop your image as `fastfetch/logo-src.<ext>` (front-facing, high
+  contrast, plain background renders cleanest), then `cd fastfetch && ./gen-logo.sh`.
+- Needs `chafa` (`brew install chafa`). Tune size via `SIZE` in `gen-logo.sh`.
+- fastfetch has **no** native box/border around the info panel (the ref's rounded
+  box isn't reproducible without a custom wrapper), so the layout is borderless.
+- nvim dashboard reads `nvim/cat.txt`; regenerate it the same way (plain braille)
+  if you want them to match a new cat.
+
 ## Notes
 
 - **ccstatusline** and **Claude Code** don't have their own mono theme — they use
