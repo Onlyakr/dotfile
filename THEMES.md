@@ -41,18 +41,16 @@ git revert cb04c29
 
 ## fastfetch cat logo
 
-Two-panel monochrome fetch, ref-style: **[ dot-art cat box ] [ spec box ]**.
-The cat is braille dot-art (density carries the shape) rendered from an image;
-the same art feeds the nvim dashboard header (`nvim/cat.txt`).
+Default fastfetch layout (`config.jsonc`) with a braille dot-art cat as the logo.
+The cat is generated from `logo-src.txt` (an ASCII-art cat used as the reference):
+`gen-logo.sh` rasterises the art, blurs it so character density becomes tone, then
+dithers to braille dots. The same `cat.txt` feeds the nvim dashboard header.
 
-- **Run it:** `~/.config/fastfetch/rice.sh` — alias it, e.g. `alias si='~/.config/fastfetch/rice.sh'`.
-  (Plain `fastfetch` still works too but uses the simpler one-panel `config.jsonc`.)
-- **Swap the cat:** drop your image as `fastfetch/logo-src.<ext>`, then
-  `cd fastfetch && ./gen-logo.sh`. A subject that fills the frame with clear
-  light/dark contrast reads best; needs `chafa` + `imagemagick` (`brew install chafa imagemagick`).
-- **Why a wrapper:** fastfetch can't draw a border around its own info, so
-  `rice.sh` renders the info with `--pipe` and boxes both panels itself.
-- Tune cat size via `SIZE` in `gen-logo.sh` (also update `CAT_W` in `rice.sh`).
+- **Regenerate / swap the cat:** edit `logo-src.txt` (or drop a `logo-src.<img>`
+  for a photo), then `cd fastfetch && ./gen-logo.sh`. Needs `chafa` + `imagemagick`
+  (`brew install chafa imagemagick`).
+- Tune with `SIZE` / `BLUR` in `gen-logo.sh` (higher blur = smoother, lower = more
+  texture). Logo `width`/`height` in `config.jsonc` must match `SIZE`.
 
 ## Notes
 

@@ -3,30 +3,39 @@
   "logo": {
     "type": "file-raw",
     "source": "~/.config/fastfetch/cat.txt",
-    "width": 34,
-    "height": 17,
-    "padding": { "top": 1, "left": 2, "right": 5 }
-  },
-  "display": {
-    "separator": "   ",
-    // mono: keys dim grey (ANSI 8), values inherit terminal fg (white)
-    "color": { "keys": "8", "title": "white", "separator": "8" },
-    "key": { "width": 9 }
+    "width": 28,
+    "height": 34,
+    "padding": { "top": 1, "left": 2, "right": 3 }
   },
   "modules": [
-    { "type": "title", "format": "{user-name}  {host-name}" },
+    "title",
+    "separator",
+    "os",
+    "host",
+    "kernel",
+    "uptime",
+    "packages",
+    "shell",
+    "display",
+    "de",
+    "wm",
+    "wmtheme",
+    "theme",
+    "icons",
+    "font",
+    "cursor",
+    "terminal",
+    "terminalfont",
+    "cpu",
+    "gpu",
+    "memory",
+    "swap",
+    "disk",
+    "localip",
+    "battery",
+    "poweradapter",
+    "locale",
     "break",
-    { "type": "os", "key": "OS" },
-    { "type": "kernel", "key": "Kernel" },
-    { "type": "uptime", "key": "Uptime" },
-    { "type": "shell", "key": "Shell" },
-    { "type": "terminal", "key": "Term" },
-    { "type": "wm", "key": "WM" },
-    { "type": "packages", "key": "Pkgs" },
-    { "type": "memory", "key": "Ram" },
-    { "type": "cpu", "key": "CPU", "showPeCoreCount": false },
-    { "type": "disk", "key": "Disk" },
-    "break",
-    { "type": "custom", "format": "ﾍ^•ﻌ•^ﾍ   stay libre" }
+    "colors"
   ]
 }
