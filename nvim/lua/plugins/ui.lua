@@ -1,3 +1,6 @@
+-- flip to false to revert to catppuccin-mocha
+local MONO = true
+
 return {
 	{
 		"catppuccin/nvim",
@@ -5,6 +8,10 @@ return {
 		lazy = false,
 		priority = 1000,
 		config = function()
+			if MONO then
+				require("config.mono").setup()
+				return
+			end
 			require("catppuccin").setup({
 				flavour = "mocha",
 				transparent_background = true,
@@ -32,7 +39,7 @@ return {
 		config = function()
 			require("lualine").setup({
 				options = {
-					theme = "catppuccin",
+					theme = MONO and require("config.mono").lualine() or "catppuccin",
 					globalstatus = true,
 					component_separators = { left = "│", right = "│" },
 					section_separators = { left = "", right = "" },

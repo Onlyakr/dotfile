@@ -53,9 +53,9 @@
 # theme = "Twilight"
 # theme = "0x96f"
 # theme = "Rose Pine"
-theme = "Catppuccin Mocha"
+# theme = "Catppuccin Mocha"
 # theme = "Catppuccin Frappe"
-# theme = "studio1804-monochrome.conf"
+theme = "studio1804-monochrome.conf"
 
 background = "#000000"
 # foreground = "#dddddd"

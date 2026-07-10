@@ -152,8 +152,8 @@
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    // "dark": "Catppuccin Mocha (Blur) [Light]",
-    "dark": "Catppuccin Mocha",
+    // revert: "dark": "Catppuccin Mocha",
+    "dark": "Mono",
   },
   "experimental.theme_overrides": {
     "background.appearance": "blurred",

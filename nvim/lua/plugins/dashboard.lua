@@ -38,9 +38,16 @@ return {
 			dashboard.section.buttons.opts.hl = "AlphaButtons"
 			dashboard.section.footer.opts.hl = "AlphaFooter"
 
-			vim.api.nvim_set_hl(0, "AlphaHeader",  { fg = "#cba6f7" }) -- mauve
-			vim.api.nvim_set_hl(0, "AlphaButtons", { fg = "#89b4fa" }) -- blue
-			vim.api.nvim_set_hl(0, "AlphaFooter",  { fg = "#585b70" }) -- surface2
+			-- follow the active theme: greyscale under mono, catppuccin otherwise
+			if vim.g.colors_name == "mono" then
+				vim.api.nvim_set_hl(0, "AlphaHeader",  { fg = "#e0e0e0" })
+				vim.api.nvim_set_hl(0, "AlphaButtons", { fg = "#a0a0a0" })
+				vim.api.nvim_set_hl(0, "AlphaFooter",  { fg = "#606060" })
+			else
+				vim.api.nvim_set_hl(0, "AlphaHeader",  { fg = "#cba6f7" }) -- mauve
+				vim.api.nvim_set_hl(0, "AlphaButtons", { fg = "#89b4fa" }) -- blue
+				vim.api.nvim_set_hl(0, "AlphaFooter",  { fg = "#585b70" }) -- surface2
+			end
 
 			alpha.setup(dashboard.config)
 
