@@ -3,8 +3,8 @@
   "logo": {
     "type": "file-raw",
     "source": "~/.config/fastfetch/cat.txt",
-    "width": 54,
-    "height": 33,
+    "width": 53,
+    "height": 31,
     "padding": { "top": 1, "left": 2, "right": 3 }
   },
   "modules": [
