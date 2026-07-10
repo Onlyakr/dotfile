@@ -4,13 +4,15 @@
 # Reconstructs the real bitmap from the braille dots (each char = 2x4 dots),
 # then re-dithers smaller — lossless, unlike re-rasterising the glyphs.
 #
-# Usage: ./fit-cat.sh [rows] [file]   (default rows=28, file=cat.txt)
-#        For the nvim dashboard: ./fit-cat.sh 18 ../nvim/cat.txt
-#        For fastfetch, then set width/height in config.jsonc to what it prints.
+# Usage: ./fit-cat.sh [rows] [file]        (default rows=28, file=cat.txt)
+#        COLS=60 ./fit-cat.sh 22           widen: stretch to exact COLS x rows
+#        ./fit-cat.sh 18 ../nvim/cat.txt   the nvim dashboard cat
+# For fastfetch, set width/height in config.jsonc to what it prints.
 set -euo pipefail
 cd "$(dirname "$0")"
 ROWS="${1:-28}"
 FILE="${2:-cat.txt}"
+COLS="${COLS:-0}"   # 0 = keep aspect; >0 = stretch to exactly COLSxROWS (fixes proportion)
 command -v chafa >/dev/null || { echo "need chafa"; exit 1; }
 command -v magick >/dev/null || { echo "need imagemagick"; exit 1; }
 
@@ -32,7 +34,12 @@ PY
 
 magick /tmp/.fitcat.pbm -negate /tmp/.fitcat.png
 ESC=$(printf '\033')
-chafa -f symbols --symbols braille --fg-only -c none -s "200x${ROWS}" /tmp/.fitcat.png \
+if [ "$COLS" -gt 0 ]; then
+  SIZE_ARGS=(--stretch -s "${COLS}x${ROWS}")   # exact size, fixes proportion
+else
+  SIZE_ARGS=(-s "200x${ROWS}")                 # keep aspect, width auto
+fi
+chafa -f symbols --symbols braille --fg-only -c none "${SIZE_ARGS[@]}" /tmp/.fitcat.png \
   | sed "s/${ESC}\[[?0-9;]*[a-zA-Z]//g" > "$FILE"
 rm -f /tmp/.fitcat.pbm /tmp/.fitcat.png
 
