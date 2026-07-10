@@ -46,11 +46,16 @@ The cat is generated from `logo-src.txt` (an ASCII-art cat used as the reference
 `gen-logo.sh` rasterises the art, blurs it so character density becomes tone, then
 dithers to braille dots. The same `cat.txt` feeds the nvim dashboard header.
 
-- **Regenerate / swap the cat:** edit `logo-src.txt` (or drop a `logo-src.<img>`
-  for a photo), then `cd fastfetch && ./gen-logo.sh`. Needs `chafa` + `imagemagick`
-  (`brew install chafa imagemagick`).
-- Tune with `SIZE` / `BLUR` in `gen-logo.sh` (higher blur = smoother, lower = more
-  texture). Logo `width`/`height` in `config.jsonc` must match `SIZE`.
+`cat.txt` currently holds a hand-picked braille art pasted in directly (54×33).
+The nvim dashboard uses the same file.
+
+- **Swap the cat, option A (paste braille):** overwrite `fastfetch/cat.txt` (and
+  `nvim/cat.txt`) with braille art and set the logo `width`/`height` in
+  `config.jsonc` to its columns/rows.
+- **Swap the cat, option B (from an image/ASCII):** put it in `logo-src.txt`
+  (ASCII) or `logo-src.<img>` (photo) and run `cd fastfetch && ./gen-logo.sh` —
+  note this **overwrites** the pasted `cat.txt`. Needs `chafa` + `imagemagick`.
+  Tune `SIZE` / `BLUR` there; keep `config.jsonc` `width`/`height` in sync.
 
 ## Notes
 
