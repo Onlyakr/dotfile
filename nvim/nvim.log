@@ -1,0 +1,6 @@
+WRN 2026-05-12T00:11:09.369 ?.20431    server_start:197: Failed to start server: operation not permitted: /var/folders/qm/vvyj58ns1td6mcbpzj4b36400000gn/T/nvim.onlyakr/RjEm4G/nvim.20431.0
+WRN 2026-05-12T00:11:09.404 ?.20431    server_start:197: Failed to start server: operation not permitted: /var/folders/qm/vvyj58ns1td6mcbpzj4b36400000gn/T/nvim.onlyakr/RjEm4G/fzf-lua.1778519469.20431.1
+WRN 2026-05-12T00:11:14.640 ?.20443    server_start:197: Failed to start server: operation not permitted: /var/folders/qm/vvyj58ns1td6mcbpzj4b36400000gn/T/nvim.onlyakr/MlemD7/nvim.20443.0
+WRN 2026-05-12T00:11:20.380 ?.20469    server_start:197: Failed to start server: operation not permitted: /var/folders/qm/vvyj58ns1td6mcbpzj4b36400000gn/T/nvim.onlyakr/xMuvqh/nvim.20469.0
+WRN 2026-05-12T00:14:13.265 ?.21856    server_start:197: Failed to start server: operation not permitted: /var/folders/qm/vvyj58ns1td6mcbpzj4b36400000gn/T/nvim.onlyakr/4iQwMr/nvim.21856.0
+WRN 2026-05-12T00:14:13.318 ?.21856    server_start:197: Failed to start server: operation not permitted: /var/folders/qm/vvyj58ns1td6mcbpzj4b36400000gn/T/nvim.onlyakr/4iQwMr/fzf-lua.1778519653.21856.1

@@ -11,3 +11,6 @@
 **/settings_backup.json
 **/*.mdb
 **/settings.local.json
+
+# tmux plugins (managed by tpm)
+tmux/plugins/
