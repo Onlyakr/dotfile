@@ -4,15 +4,17 @@
 # Reconstructs the real bitmap from the braille dots (each char = 2x4 dots),
 # then re-dithers smaller — lossless, unlike re-rasterising the glyphs.
 #
-# Usage: ./fit-cat.sh [rows]   then set width/height in config.jsonc to the
-#        dimensions it prints.
+# Usage: ./fit-cat.sh [rows] [file]   (default rows=28, file=cat.txt)
+#        For the nvim dashboard: ./fit-cat.sh 18 ../nvim/cat.txt
+#        For fastfetch, then set width/height in config.jsonc to what it prints.
 set -euo pipefail
 cd "$(dirname "$0")"
 ROWS="${1:-28}"
+FILE="${2:-cat.txt}"
 command -v chafa >/dev/null || { echo "need chafa"; exit 1; }
 command -v magick >/dev/null || { echo "need imagemagick"; exit 1; }
 
-python3 - "$PWD/cat.txt" > /tmp/.fitcat.pbm <<'PY'
+python3 - "$FILE" > /tmp/.fitcat.pbm <<'PY'
 import sys
 lines=[l for l in open(sys.argv[1],encoding='utf-8').read().split('\n') if l!='']
 W=max(len(l) for l in lines); H=len(lines)
@@ -31,8 +33,8 @@ PY
 magick /tmp/.fitcat.pbm -negate /tmp/.fitcat.png
 ESC=$(printf '\033')
 chafa -f symbols --symbols braille --fg-only -c none -s "200x${ROWS}" /tmp/.fitcat.png \
-  | sed "s/${ESC}\[[?0-9;]*[a-zA-Z]//g" > cat.txt
+  | sed "s/${ESC}\[[?0-9;]*[a-zA-Z]//g" > "$FILE"
 rm -f /tmp/.fitcat.pbm /tmp/.fitcat.png
 
-h=$(wc -l < cat.txt); w=$(sed -n '1p' cat.txt | grep -o . | wc -l | tr -d ' ')
-echo "cat.txt resized -> set config.jsonc logo width=$w height=$h"
+h=$(wc -l < "$FILE"); w=$(sed -n '1p' "$FILE" | grep -o . | wc -l | tr -d ' ')
+echo "$FILE resized -> ${w}x${h} (for fastfetch set config.jsonc logo width=$w height=$h)"
