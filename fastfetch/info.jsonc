@@ -1,0 +1,17 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "logo": { "type": "none" },
+  "display": { "separator": "\t" },
+  "modules": [
+    { "type": "os", "key": "OS" },
+    { "type": "kernel", "key": "Kernel" },
+    { "type": "uptime", "key": "Uptime" },
+    { "type": "command", "key": "Shell", "text": "v=$($SHELL --version 2>/dev/null | grep -oE '[0-9]+\\.[0-9.]+' | head -1); echo \"${SHELL##*/} $v\"" },
+    { "type": "terminal", "key": "Term" },
+    { "type": "wm", "key": "WM" },
+    { "type": "packages", "key": "Pkgs" },
+    { "type": "memory", "key": "Ram" },
+    { "type": "cpu", "key": "CPU", "showPeCoreCount": false },
+    { "type": "disk", "key": "Disk", "folders": "/" }
+  ]
+}

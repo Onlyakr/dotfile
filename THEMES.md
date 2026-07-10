@@ -41,16 +41,18 @@ git revert cb04c29
 
 ## fastfetch cat logo
 
-Greyscale braille dot-art cat, rendered from an image. Same art feeds the nvim
-dashboard header (`nvim/cat.txt`).
+Two-panel monochrome fetch, ref-style: **[ dot-art cat box ] [ spec box ]**.
+The cat is braille dot-art (density carries the shape) rendered from an image;
+the same art feeds the nvim dashboard header (`nvim/cat.txt`).
 
-- Swap the cat: drop your image as `fastfetch/logo-src.<ext>` (front-facing, high
-  contrast, plain background renders cleanest), then `cd fastfetch && ./gen-logo.sh`.
-- Needs `chafa` (`brew install chafa`). Tune size via `SIZE` in `gen-logo.sh`.
-- fastfetch has **no** native box/border around the info panel (the ref's rounded
-  box isn't reproducible without a custom wrapper), so the layout is borderless.
-- nvim dashboard reads `nvim/cat.txt`; regenerate it the same way (plain braille)
-  if you want them to match a new cat.
+- **Run it:** `~/.config/fastfetch/rice.sh` — alias it, e.g. `alias si='~/.config/fastfetch/rice.sh'`.
+  (Plain `fastfetch` still works too but uses the simpler one-panel `config.jsonc`.)
+- **Swap the cat:** drop your image as `fastfetch/logo-src.<ext>`, then
+  `cd fastfetch && ./gen-logo.sh`. A subject that fills the frame with clear
+  light/dark contrast reads best; needs `chafa` + `imagemagick` (`brew install chafa imagemagick`).
+- **Why a wrapper:** fastfetch can't draw a border around its own info, so
+  `rice.sh` renders the info with `--pipe` and boxes both panels itself.
+- Tune cat size via `SIZE` in `gen-logo.sh` (also update `CAT_W` in `rice.sh`).
 
 ## Notes
 
