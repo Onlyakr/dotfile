@@ -12,7 +12,7 @@ return {
 			local cat = vim.fn.filereadable(vim.fn.expand("~/.config/nvim/cat.txt")) == 1
 					and vim.fn.readfile(vim.fn.expand("~/.config/nvim/cat.txt"))
 				or { "  /\\_/\\  ", " ( o.o ) ", "  > ^ <  " }
-			vim.list_extend(cat, { "", "N E O V I M" })
+			vim.list_extend(cat, { "", "Hewwo world :3 meow" })
 			dashboard.section.header.val = cat
 
 			-- Buttons
