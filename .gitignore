@@ -5,6 +5,7 @@
 !zed/**
 !ccstatusline/**
 !tmux/**
+!THEMES.md
 !.gitignore
 
 **/.DS_Store
