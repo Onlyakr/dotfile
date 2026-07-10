@@ -42,20 +42,28 @@ git revert cb04c29
 ## fastfetch cat logo
 
 Default fastfetch layout (`config.jsonc`) with a braille dot-art cat as the logo.
-The cat is generated from `logo-src.txt` (an ASCII-art cat used as the reference):
-`gen-logo.sh` rasterises the art, blurs it so character density becomes tone, then
-dithers to braille dots. The same `cat.txt` feeds the nvim dashboard header.
+fastfetch and nvim use **different** cats:
 
-`cat.txt` currently holds a hand-picked braille art pasted in directly (54×33).
-The nvim dashboard uses the same file.
+- **fastfetch** — `fastfetch/cat.txt`, a lineart sitting cat (48×28). Logo
+  `width`/`height` in `config.jsonc` must match the file's columns/rows.
+- **nvim dashboard** — `nvim/cat.txt`, a separate up-looking cat (40×15, round
+  eyes), read by `nvim/lua/plugins/dashboard.lua`. No caption.
 
-- **Swap the cat, option A (paste braille):** overwrite `fastfetch/cat.txt` (and
-  `nvim/cat.txt`) with braille art and set the logo `width`/`height` in
-  `config.jsonc` to its columns/rows.
-- **Swap the cat, option B (from an image/ASCII):** put it in `logo-src.txt`
-  (ASCII) or `logo-src.<img>` (photo) and run `cd fastfetch && ./gen-logo.sh` —
-  note this **overwrites** the pasted `cat.txt`. Needs `chafa` + `imagemagick`.
-  Tune `SIZE` / `BLUR` there; keep `config.jsonc` `width`/`height` in sync.
+Both are plain braille (no ANSI colour) so they render in the terminal/theme
+foreground. Files were pasted in directly; the helpers below are for editing them.
+
+### Helpers (`cd fastfetch` first)
+
+- **Resize an existing braille cat** — `./fit-cat.sh <rows> [file]` reconstructs
+  the real bitmap from the dots and re-dithers smaller (lossless, unlike
+  re-rasterising glyphs). Add `COLS=<n>` to stretch to an exact width (fix
+  proportion). e.g. `COLS=40 ./fit-cat.sh 15 ../nvim/cat.txt`. For the fastfetch
+  cat, set `config.jsonc` `width`/`height` to what it prints.
+- **Generate from an image/ASCII** — put art in `logo-src.txt` (ASCII) or
+  `logo-src.<img>` (photo) and run `./gen-logo.sh`; it rasterises + blurs (density
+  → tone) + dithers to braille. **Overwrites `cat.txt`.** Tune `SIZE` / `BLUR` there.
+- Both helpers need `chafa` + `imagemagick` (`brew install chafa imagemagick`).
+- fastfetch can't resize a text logo to the window; the logo size is fixed.
 
 ## Notes
 
