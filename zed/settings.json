@@ -8,6 +8,10 @@
       "type": "registry",
     },
     "claude-acp": {
+      "default_config_options": {
+        "mode": "bypassPermissions",
+        "model": "sonnet"
+      },
       "type": "registry",
     },
   },
@@ -154,8 +158,8 @@
     "mode": "dark",
     "light": "One Light",
     // revert: "dark": "Catppuccin Mocha",
-    // revert: "dark": "Mono",
-    "dark": "Nightsea",
+    "dark": "Mono",
+    // revert: "dark": "Nightsea",
   },
   "experimental.theme_overrides": {
     "background.appearance": "blurred",
