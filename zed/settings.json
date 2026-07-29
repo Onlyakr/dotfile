@@ -154,6 +154,7 @@
     "mode": "dark",
     "light": "One Light",
     // revert: "dark": "Catppuccin Mocha",
+    // revert: "dark": "Mono",
     "dark": "Nightsea",
   },
   "experimental.theme_overrides": {

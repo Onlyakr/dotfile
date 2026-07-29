@@ -40,8 +40,8 @@ Reload after switching:
 git reset --hard acf8864          # baseline commit "snapshot before mono ricing"
 # or undo just the mono commit
 git revert cb04c29
-# back to Mono (pre-nightsea) — replace <HEAD-of-nightsea-work> with this work's actual final commit once all Nightsea tasks land
-git revert 8089b2e^..<HEAD-of-nightsea-work>
+# back to Mono (pre-nightsea) — HEAD is the final commit of the Nightsea branch work
+git revert 8089b2e^..HEAD
 ```
 
 ## Files that make up the Mono variation
@@ -56,7 +56,7 @@ git revert 8089b2e^..<HEAD-of-nightsea-work>
 - `ghostty/themes/nightsea.conf` — ghostty palette (hue-shifted from studio1804-monochrome.conf)
 - `zed/themes/nightsea.json` — zed theme (hue-shifted from mono.json)
 - `nvim/lua/config/nightsea.lua` — nvim colorscheme (hue-shifted from mono.lua)
-- tmux `NIGHTSEA override` block in `tmux/tmux.conf` (commented out unless active)
+- tmux `NIGHTSEA override` block in `tmux/tmux.conf` (currently the active/uncommented block; MONO override is commented out)
 
 ## fastfetch cat logo
 
