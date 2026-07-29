@@ -31,7 +31,7 @@ local c = {
   g12 = "#aac8e6", -- functions (blue accent, stands out, brightest/boldest)
   white = "#ffffff",
   amber = "#e0a660", -- string literals only (duotone accent, contrast 9.8:1 on black)
-  neutral = "#c0c0c0", -- true achromatic grey (matches zed panel icon/text.muted), tree only
+  neutral = "#f0f0f0", -- true achromatic grey (matches zed panel's icon color), tree only
 }
 
 function M.setup()
