@@ -239,10 +239,12 @@ function M.setup()
   hl("NeoTreeNormal", { fg = c.neutral, bg = c.none })
   hl("NeoTreeNormalNC", { fg = c.neutral, bg = c.none })
   hl("NvimTreeNormal", { fg = c.neutral, bg = c.none })
-  -- icons default-link to Directory (kept vivid blue globally for netrw/telescope),
-  -- so grey them out here to actually match Mono's flat tree look.
+  -- icons AND directory-name text default-link to Directory (kept vivid blue
+  -- globally for netrw/telescope), so grey them out here to actually match
+  -- Mono's flat tree look.
   hl("NeoTreeDirectoryIcon", { fg = c.neutral, bg = c.none })
   hl("NeoTreeFileIcon", { fg = c.neutral, bg = c.none })
+  hl("NeoTreeDirectoryName", { fg = c.neutral, bg = c.none })
   hl("WhichKey", { fg = c.g10 })
   hl("WhichKeyGroup", { fg = c.g8 })
   hl("WhichKeyDesc", { fg = c.fg })
