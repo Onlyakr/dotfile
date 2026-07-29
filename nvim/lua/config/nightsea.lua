@@ -232,12 +232,8 @@ function M.setup()
   hl("NeoTreeNormal", { fg = c.g6, bg = c.none })
   hl("NeoTreeNormalNC", { fg = c.g6, bg = c.none })
   hl("NvimTreeNormal", { fg = c.g6, bg = c.none })
-  hl("NeoTreeFileName", { fg = c.g6, bg = c.none })
-  hl("NeoTreeDirectoryName", { fg = c.g6, bg = c.none })
-  hl("NeoTreeRootName", { fg = c.g7, bg = c.none, bold = true, italic = true })
-  hl("NeoTreeFileNameOpened", { fg = c.g10, bold = true })
-  -- icons default-link to Directory (global, kept vivid for netrw/telescope), so
-  -- override them here explicitly instead of touching that shared group.
+  -- icons default-link to Directory (kept vivid blue globally for netrw/telescope),
+  -- so grey them out here to actually match Mono's flat tree look.
   hl("NeoTreeDirectoryIcon", { fg = c.g6, bg = c.none })
   hl("NeoTreeFileIcon", { fg = c.g6, bg = c.none })
   hl("WhichKey", { fg = c.g10 })
