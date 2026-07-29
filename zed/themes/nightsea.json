@@ -28,13 +28,13 @@
         "ghost_element.selected": "#ffffff1a",
         "ghost_element.disabled": "#00000000",
         "text": "#f9fcffff",
-        "text.muted": "#89a4bfff",
+        "text.muted": "#657483ff",
         "text.placeholder": "#657483ff",
         "text.disabled": "#657483ff",
         "text.accent": "#fdfeffff",
-        "icon": "#b8d4f0ff",
-        "icon.muted": "#7d94abff",
-        "icon.disabled": "#5a646eff",
+        "icon": "#657483ff",
+        "icon.muted": "#555e67ff",
+        "icon.disabled": "#484e54ff",
         "icon.placeholder": "#7d94abff",
         "icon.accent": "#fdfeffff",
         "status_bar.background": "#232425aa",
@@ -160,7 +160,7 @@
             "color": "#b8d4f0ff"
           },
           "string": {
-            "color": "#9ebcdaff"
+            "color": "#e0a660ff"
           },
           "string.escape": {
             "color": "#c3dcf5ff"
@@ -252,7 +252,7 @@
             "font_style": "italic"
           },
           "text.literal": {
-            "color": "#9ebcdaff"
+            "color": "#e0a660ff"
           },
           "primary": {
             "color": "#f9fcffff"
