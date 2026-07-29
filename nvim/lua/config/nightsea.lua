@@ -236,6 +236,10 @@ function M.setup()
   hl("NeoTreeDirectoryName", { fg = c.g6, bg = c.none })
   hl("NeoTreeRootName", { fg = c.g7, bg = c.none, bold = true, italic = true })
   hl("NeoTreeFileNameOpened", { fg = c.g10, bold = true })
+  -- icons default-link to Directory (global, kept vivid for netrw/telescope), so
+  -- override them here explicitly instead of touching that shared group.
+  hl("NeoTreeDirectoryIcon", { fg = c.g6, bg = c.none })
+  hl("NeoTreeFileIcon", { fg = c.g6, bg = c.none })
   hl("WhichKey", { fg = c.g10 })
   hl("WhichKeyGroup", { fg = c.g8 })
   hl("WhichKeyDesc", { fg = c.fg })
