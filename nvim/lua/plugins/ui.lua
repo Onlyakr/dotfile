@@ -1,5 +1,5 @@
 -- one of "nightsea" | "mono" | "catppuccin"
-local THEME = "mono"
+local THEME = "nightsea"
 
 return {
 	{
