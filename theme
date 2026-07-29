@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+# Switch the active theme preset across ghostty/zed/nvim/tmux in one shot.
+# Usage: theme [nightsea|mono|catppuccin]   (no arg: print current state)
+#
+# Reloads tmux automatically (tmux respects live `source-file`). ghostty has
+# no CLI-triggerable reload — press cmd+r inside a ghostty window. nvim/zed
+# only apply a colorscheme at startup, so reopen them.
+set -euo pipefail
+
+CONFIG_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$CONFIG_DIR"
+
+GHOSTTY_CONF="ghostty/config"
+ZED_SETTINGS="zed/settings.json"
+NVIM_UI="nvim/lua/plugins/ui.lua"
+TMUX_CONF="tmux/tmux.conf"
+
+usage() {
+	echo "Usage: theme [nightsea|mono|catppuccin]"
+	echo
+	current
+}
+
+current() {
+	local ghostty_active zed_active nvim_active tmux_active
+	ghostty_active=$(grep -m1 -E '^theme = "(nightsea\.conf|studio1804-monochrome\.conf|Catppuccin Mocha)"' "$GHOSTTY_CONF" || echo "(none active)")
+	zed_active=$(grep -m1 -E '^\s*"dark": "(Nightsea|Mono|Catppuccin Mocha)",' "$ZED_SETTINGS" || echo "(none active)")
+	nvim_active=$(grep -m1 'local THEME' "$NVIM_UI" || echo "(not found)")
+	if sed -n '/^# --- NIGHTSEA override/,$p' "$TMUX_CONF" | grep -q '^set -g @thm_bg'; then
+		tmux_active="nightsea"
+	elif sed -n '/^# --- MONO override/,/^$/p' "$TMUX_CONF" | grep -q '^set -g @thm_bg'; then
+		tmux_active="mono"
+	else
+		tmux_active="catppuccin"
+	fi
+	echo "ghostty: $ghostty_active"
+	echo "zed:     $zed_active"
+	echo "nvim:    $nvim_active"
+	echo "tmux:    $tmux_active override active"
+}
+
+set_ghostty() {
+	local target="$1"
+	sed -i '' -E 's/^(# )?theme = "nightsea\.conf"/# theme = "nightsea.conf"/' "$GHOSTTY_CONF"
+	sed -i '' -E 's/^(# )?theme = "studio1804-monochrome\.conf"/# theme = "studio1804-monochrome.conf"/' "$GHOSTTY_CONF"
+	sed -i '' -E 's/^(# )?theme = "Catppuccin Mocha"/# theme = "Catppuccin Mocha"/' "$GHOSTTY_CONF"
+	case "$target" in
+	nightsea) sed -i '' 's/^# theme = "nightsea.conf"/theme = "nightsea.conf"/' "$GHOSTTY_CONF" ;;
+	mono) sed -i '' 's/^# theme = "studio1804-monochrome.conf"/theme = "studio1804-monochrome.conf"/' "$GHOSTTY_CONF" ;;
+	catppuccin) sed -i '' 's/^# theme = "Catppuccin Mocha"/theme = "Catppuccin Mocha"/' "$GHOSTTY_CONF" ;;
+	esac
+}
+
+set_zed() {
+	local target="$1" name
+	case "$target" in
+	nightsea) name="Nightsea" ;;
+	mono) name="Mono" ;;
+	catppuccin) name="Catppuccin Mocha" ;;
+	esac
+	# comment whichever of the 3 is currently active, scoped to the "theme": {} block only
+	sed -i '' '/"theme": {/,/^  },/{
+		s/^\( *\)"dark": "Catppuccin Mocha",/\1\/\/ revert: "dark": "Catppuccin Mocha",/
+		s/^\( *\)"dark": "Mono",/\1\/\/ revert: "dark": "Mono",/
+		s/^\( *\)"dark": "Nightsea",/\1\/\/ revert: "dark": "Nightsea",/
+	}' "$ZED_SETTINGS"
+	# uncomment the target
+	sed -i '' "/\"theme\": {/,/^  },/{
+		s/^\( *\)\/\/ revert: \"dark\": \"$name\",/\1\"dark\": \"$name\",/
+	}" "$ZED_SETTINGS"
+}
+
+set_nvim() {
+	sed -i '' -E "s/^local THEME = \"[a-z]+\"/local THEME = \"$1\"/" "$NVIM_UI"
+}
+
+set_tmux() {
+	local target="$1"
+	# comment both blocks unconditionally, then uncomment the target (idempotent either way)
+	sed -i '' '/^# --- MONO override/,/^$/{s/^set -g @thm_/#set -g @thm_/;}' "$TMUX_CONF"
+	sed -i '' '/^# --- NIGHTSEA override/,$ {s/^set -g @thm_/#set -g @thm_/;}' "$TMUX_CONF"
+	case "$target" in
+	mono) sed -i '' '/^# --- MONO override/,/^$/{s/^#set -g @thm_/set -g @thm_/;}' "$TMUX_CONF" ;;
+	nightsea) sed -i '' '/^# --- NIGHTSEA override/,$ {s/^#set -g @thm_/set -g @thm_/;}' "$TMUX_CONF" ;;
+	catppuccin) : ;; # both stay commented, catppuccin's own @thm_* defaults apply
+	esac
+}
+
+reload_tmux() {
+	if [ -n "${TMUX:-}" ]; then
+		tmux source-file "$CONFIG_DIR/$TMUX_CONF" && echo "tmux: reloaded"
+	fi
+}
+
+main() {
+	if [ $# -eq 0 ]; then
+		current
+		exit 0
+	fi
+	local target="$1"
+	case "$target" in
+	nightsea | mono | catppuccin) ;;
+	*)
+		echo "error: unknown preset '$target'" >&2
+		usage >&2
+		exit 1
+		;;
+	esac
+
+	set_ghostty "$target"
+	set_zed "$target"
+	set_nvim "$target"
+	set_tmux "$target"
+	reload_tmux
+
+	echo "Switched to $target."
+	echo "ghostty: press cmd+r in a ghostty window to reload."
+	echo "nvim/zed: reopen to apply (colorscheme only set at startup)."
+}
+
+main "$@"
