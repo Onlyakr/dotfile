@@ -6,10 +6,16 @@ Three variations live side-by-side. **Nightsea** (dark black/blue) is active.
 deleted.
 
 Grey ramp shared by Mono: `#000000 → 404040 → 606060 → 808080 → a0a0a0 →
-d0d0d0 → e0e0e0 → f0f0f0 → #ffffff`. Nightsea uses the same lightness stops,
-hue-shifted to `HSL(210°, 22%, L)` — derived from the wallpaper
-(`~/Pictures/wallpapers/wallhaven-po75pp.jpg`), see
-`docs/superpowers/specs/2026-07-29-nightsea-theme-design.md` for the formula.
+d0d0d0 → e0e0e0 → f0f0f0 → #ffffff`. Nightsea re-tints every grey `v` (0-255)
+to hue 210° with `R = v - d, G = v, B = v + d`, where `d(v)` follows a
+lightness-skewed curve (`d = 30 · x³(1-x) / 0.10546875`, `x = v/255`) instead
+of a flat saturation — chroma peaks near the light text/tree tones (`v≈191`)
+and vanishes at both `v=0` and `v=255`, so pure black/white survive and dark
+UI chrome (borders, selection) doesn't read oversaturated the way a constant
+HSL-saturation ramp did in an earlier iteration of this theme. Hue derived
+from the wallpaper (`~/Pictures/wallpapers/wallhaven-po75pp.jpg`); see
+`docs/superpowers/specs/2026-07-29-nightsea-theme-design.md` for the original
+design rationale (its formula section is superseded by this one).
 Transparency/blur is kept in both.
 
 ## Switch a single tool

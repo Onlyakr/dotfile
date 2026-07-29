@@ -1,26 +1,29 @@
 -- Nightsea colorscheme: dark black/blue, hue-shifted from the Mono ramp at
--- HSL(210, 22%, L) so every contrast relationship Mono already tuned carries
--- over unchanged. Transparent bg so ghostty's blur shows through.
+-- hue 210 with a lightness-skewed chroma curve (near-zero tint at dark UI
+-- chrome, strong tint at the light text/tree tones, pure black/white at the
+-- extremes) so contrast carries over from Mono without the dark end reading
+-- oversaturated or the light end reading un-tinted. Transparent bg so
+-- ghostty's blur shows through.
 
 local M = {}
 
--- blue ramp (same lightness stops as the Mono grey ramp, hue 210 / sat 22%)
+-- blue ramp (hue 210, chroma peaks near the g9/g10 tones, vanishes at 0/255)
 local c = {
   none = "NONE",
-  fg = "#e3e8ed",
+  fg = "#d5e8fb",
   black = "#000000",
-  g1 = "#101418", -- subtle fill (pmenu/cursorline)
-  g2 = "#141a20",
-  g3 = "#212a33", -- borders / separators
-  g4 = "#2d3a47", -- visual selection
-  g5 = "#3a4a5a",
-  g6 = "#4b6075", -- comments / linenr-dim
-  g7 = "#64809c", -- punctuation / muted
-  g8 = "#8ba0b5", -- operator / string-ish
-  g9 = "#b2c0ce", -- constants
-  g10 = "#c6d0da", -- variables
-  g11 = "#d9e0e7", -- types
-  g12 = "#eff2f5", -- functions
+  g1 = "#141414", -- subtle fill (pmenu/cursorline)
+  g2 = "#1a1a1a",
+  g3 = "#292a2b", -- borders / separators
+  g4 = "#373a3d", -- visual selection
+  g5 = "#454a4f",
+  g6 = "#576069", -- comments / linenr-dim
+  g7 = "#6e8092", -- punctuation / muted
+  g8 = "#86a0ba", -- operator / string-ish
+  g9 = "#a2c0de", -- constants
+  g10 = "#b4d0ec", -- variables
+  g11 = "#c9e0f7", -- types
+  g12 = "#e6f2fe", -- functions
   white = "#ffffff",
 }
 
@@ -208,9 +211,9 @@ function M.setup()
   hl("DiagnosticVirtualTextHint", { fg = c.g6 })
 
   -- git / gitsigns (brightness-coded)
-  hl("DiffAdd", { bg = "#161c22" })
-  hl("DiffChange", { bg = "#13181d" })
-  hl("DiffDelete", { fg = c.g6, bg = "#101418" })
+  hl("DiffAdd", { bg = "#1c1c1c" })
+  hl("DiffChange", { bg = "#181818" })
+  hl("DiffDelete", { fg = c.g6, bg = "#141414" })
   hl("DiffText", { bg = c.g4 })
   hl("Added", { fg = c.g11 })
   hl("Changed", { fg = c.g9 })
