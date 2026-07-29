@@ -55,6 +55,7 @@
 # theme = "Rose Pine"
 # theme = "Catppuccin Mocha"
 # theme = "Catppuccin Frappe"
+# theme = "studio1804-monochrome.conf"
 theme = "nightsea.conf"
 
 background = "#000000"
