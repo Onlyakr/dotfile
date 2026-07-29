@@ -130,11 +130,11 @@
         ],
         "syntax": {
           "comment": {
-            "color": "#657483ff",
+            "color": "#606060ff",
             "font_style": "italic"
           },
           "comment.doc": {
-            "color": "#718497ff",
+            "color": "#707070ff",
             "font_style": "italic"
           },
           "keyword": {
@@ -142,49 +142,49 @@
             "font_style": "italic"
           },
           "operator": {
-            "color": "#97b4d1ff"
+            "color": "#a0a0a0ff"
           },
           "punctuation": {
-            "color": "#7d94abff"
+            "color": "#808080ff"
           },
           "punctuation.bracket": {
-            "color": "#7d94abff"
+            "color": "#808080ff"
           },
           "punctuation.delimiter": {
-            "color": "#7d94abff"
+            "color": "#808080ff"
           },
           "punctuation.special": {
-            "color": "#97b4d1ff"
+            "color": "#a0a0a0ff"
           },
           "punctuation.list_marker": {
-            "color": "#b8d4f0ff"
+            "color": "#c0c0c0ff"
           },
           "string": {
             "color": "#e0a660ff"
           },
           "string.escape": {
-            "color": "#c3dcf5ff"
+            "color": "#c8c8c8ff"
           },
           "string.regex": {
-            "color": "#a6c4e2ff"
+            "color": "#b0b0b0ff"
           },
           "string.special": {
-            "color": "#b8d4f0ff"
+            "color": "#c0c0c0ff"
           },
           "string.special.symbol": {
-            "color": "#b8d4f0ff"
+            "color": "#c0c0c0ff"
           },
           "number": {
-            "color": "#c6def6ff"
+            "color": "#cacacaff"
           },
           "boolean": {
-            "color": "#c6def6ff"
+            "color": "#cacacaff"
           },
           "constant": {
-            "color": "#dbecfdff"
+            "color": "#d8d8d8ff"
           },
           "constant.builtin": {
-            "color": "#dbecfdff"
+            "color": "#d8d8d8ff"
           },
           "function": {
             "color": "#fdfeffff"
@@ -205,22 +205,22 @@
             "color": "#f1f8ffff"
           },
           "variable": {
-            "color": "#d5e8fbff"
+            "color": "#d4d4d4ff"
           },
           "variable.special": {
             "color": "#fdfeffff"
           },
           "property": {
-            "color": "#bed8f2ff"
+            "color": "#c4c4c4ff"
           },
           "attribute": {
-            "color": "#cee4faff"
+            "color": "#d0d0d0ff"
           },
           "tag": {
             "color": "#e9f4ffff"
           },
           "label": {
-            "color": "#cee4faff"
+            "color": "#d0d0d0ff"
           },
           "enum": {
             "color": "#f1f8ffff"
@@ -229,10 +229,10 @@
             "color": "#fdfeffff"
           },
           "embedded": {
-            "color": "#f9fcffff"
+            "color": "#e8e8e8ff"
           },
           "emphasis": {
-            "color": "#f9fcffff",
+            "color": "#e8e8e8ff",
             "font_style": "italic"
           },
           "emphasis.strong": {
@@ -244,28 +244,28 @@
             "font_weight": 700
           },
           "link_uri": {
-            "color": "#a6c4e2ff",
+            "color": "#b0b0b0ff",
             "font_style": "italic"
           },
           "link_text": {
-            "color": "#cee4faff",
+            "color": "#d0d0d0ff",
             "font_style": "italic"
           },
           "text.literal": {
             "color": "#e0a660ff"
           },
           "primary": {
-            "color": "#f9fcffff"
+            "color": "#e8e8e8ff"
           },
           "predictive": {
-            "color": "#657483ff",
+            "color": "#606060ff",
             "font_style": "italic"
           },
           "hint": {
-            "color": "#7d94abff"
+            "color": "#808080ff"
           },
           "variant": {
-            "color": "#cee4faff"
+            "color": "#d0d0d0ff"
           }
         }
       }
