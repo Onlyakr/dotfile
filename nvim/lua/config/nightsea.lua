@@ -7,23 +7,22 @@
 
 local M = {}
 
--- blue ramp (hue 210, chroma peaks near the g9/g10 tones, vanishes at 0/255)
 local c = {
   none = "NONE",
-  fg = "#d5e8fb",
+  fg = "#f9fcff",
   black = "#000000",
-  g1 = "#141414", -- subtle fill (pmenu/cursorline)
-  g2 = "#1a1a1a",
-  g3 = "#292a2b", -- borders / separators
-  g4 = "#373a3d", -- visual selection
-  g5 = "#454a4f",
-  g6 = "#576069", -- comments / linenr-dim
-  g7 = "#6e8092", -- punctuation / muted
-  g8 = "#86a0ba", -- operator / string-ish
-  g9 = "#a2c0de", -- constants
-  g10 = "#b4d0ec", -- variables
-  g11 = "#c9e0f7", -- types
-  g12 = "#e6f2fe", -- functions
+  g1 = "#272829", -- subtle fill (pmenu/cursorline)
+  g2 = "#2d2e2f",
+  g3 = "#3b3e41", -- borders / separators
+  g4 = "#484e54", -- visual selection
+  g5 = "#555e67",
+  g6 = "#657483", -- comments / linenr-dim
+  g7 = "#7d94ab", -- punctuation / muted
+  g8 = "#97b4d1", -- operator / string-ish
+  g9 = "#b8d4f0", -- constants
+  g10 = "#cee4fa", -- variables
+  g11 = "#e9f4ff", -- types
+  g12 = "#fdfeff", -- functions
   white = "#ffffff",
 }
 
@@ -211,9 +210,9 @@ function M.setup()
   hl("DiagnosticVirtualTextHint", { fg = c.g6 })
 
   -- git / gitsigns (brightness-coded)
-  hl("DiffAdd", { bg = "#1c1c1c" })
-  hl("DiffChange", { bg = "#181818" })
-  hl("DiffDelete", { fg = c.g6, bg = "#141414" })
+  hl("DiffAdd", { bg = "#2e3032" })
+  hl("DiffChange", { bg = "#2b2c2d" })
+  hl("DiffDelete", { fg = c.g6, bg = "#272829" })
   hl("DiffText", { bg = c.g4 })
   hl("Added", { fg = c.g11 })
   hl("Changed", { fg = c.g9 })
