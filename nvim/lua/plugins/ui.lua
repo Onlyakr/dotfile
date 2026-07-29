@@ -1,5 +1,5 @@
--- flip to false to revert to catppuccin-mocha
-local MONO = true
+-- one of "nightsea" | "mono" | "catppuccin"
+local THEME = "nightsea"
 
 return {
 	{
@@ -8,7 +8,11 @@ return {
 		lazy = false,
 		priority = 1000,
 		config = function()
-			if MONO then
+			if THEME == "nightsea" then
+				require("config.nightsea").setup()
+				return
+			end
+			if THEME == "mono" then
 				require("config.mono").setup()
 				return
 			end
@@ -39,7 +43,9 @@ return {
 		config = function()
 			require("lualine").setup({
 				options = {
-					theme = MONO and require("config.mono").lualine() or "catppuccin",
+					theme = (THEME == "nightsea" and require("config.nightsea").lualine())
+						or (THEME == "mono" and require("config.mono").lualine())
+						or "catppuccin",
 					globalstatus = true,
 					component_separators = { left = "│", right = "│" },
 					section_separators = { left = "", right = "" },
