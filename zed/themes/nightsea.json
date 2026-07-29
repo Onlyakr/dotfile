@@ -187,28 +187,28 @@
             "color": "#d8d8d8ff"
           },
           "function": {
-            "color": "#fdfeffff"
+            "color": "#aac8e6ff"
           },
           "function.method": {
-            "color": "#fdfeffff"
+            "color": "#aac8e6ff"
           },
           "function.builtin": {
-            "color": "#fdfeffff"
+            "color": "#aac8e6ff"
           },
           "function.special": {
             "color": "#ffffffff"
           },
           "type": {
-            "color": "#f1f8ffff"
+            "color": "#9bb9d7ff"
           },
           "type.builtin": {
-            "color": "#f1f8ffff"
+            "color": "#9bb9d7ff"
           },
           "variable": {
             "color": "#d4d4d4ff"
           },
           "variable.special": {
-            "color": "#fdfeffff"
+            "color": "#9bb9d7ff"
           },
           "property": {
             "color": "#c4c4c4ff"
@@ -217,16 +217,16 @@
             "color": "#d0d0d0ff"
           },
           "tag": {
-            "color": "#e9f4ffff"
+            "color": "#9bb9d7ff"
           },
           "label": {
             "color": "#d0d0d0ff"
           },
           "enum": {
-            "color": "#f1f8ffff"
+            "color": "#9bb9d7ff"
           },
           "constructor": {
-            "color": "#fdfeffff"
+            "color": "#9bb9d7ff"
           },
           "embedded": {
             "color": "#e8e8e8ff"
