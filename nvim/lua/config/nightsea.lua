@@ -9,22 +9,26 @@ local M = {}
 
 local c = {
   none = "NONE",
-  fg = "#f9fcff",
+  -- g1-g10 and fg are Mono's literal achromatic greys, verbatim: blue is spent
+  -- only where it needs to stand out (types/functions below, amber for
+  -- strings), everything else reads exactly like Mono.
+  fg = "#e8e8e8",
   black = "#000000",
-  g1 = "#272829", -- subtle fill (pmenu/cursorline)
-  g2 = "#2d2e2f",
-  g3 = "#3b3e41", -- borders / separators
-  g4 = "#484e54", -- visual selection
-  g5 = "#555e67",
-  g6 = "#657483", -- comments / linenr-dim
-  g7 = "#7d94ab", -- punctuation / muted
-  g8 = "#97b4d1", -- operator / string-ish
-  g9 = "#b8d4f0", -- constants
-  g10 = "#cee4fa", -- variables
-  g11 = "#e9f4ff", -- types
-  g12 = "#fdfeff", -- functions
+  g1 = "#141414", -- subtle fill (pmenu/cursorline)
+  g2 = "#1a1a1a",
+  g3 = "#2a2a2a", -- borders / separators
+  g4 = "#3a3a3a", -- visual selection
+  g5 = "#4a4a4a",
+  g6 = "#606060", -- comments / linenr-dim
+  g7 = "#808080", -- punctuation / muted
+  g8 = "#a0a0a0", -- operator
+  g9 = "#c0c0c0", -- constants / numbers
+  g10 = "#d0d0d0", -- variables / identifiers
+  g11 = "#e9f4ff", -- types (blue accent, stands out)
+  g12 = "#fdfeff", -- functions (blue accent, stands out)
   white = "#ffffff",
   amber = "#e0a660", -- string literals only (duotone accent, contrast 9.8:1 on black)
+  neutral = "#c0c0c0", -- true achromatic grey (matches zed panel icon/text.muted), tree only
 }
 
 function M.setup()
@@ -229,13 +233,13 @@ function M.setup()
   hl("TelescopeSelection", { fg = c.white, bg = c.g2, bold = true })
   hl("TelescopeMatching", { fg = c.white, bold = true })
   hl("TelescopeTitle", { fg = c.white, bold = true })
-  hl("NeoTreeNormal", { fg = c.g6, bg = c.none })
-  hl("NeoTreeNormalNC", { fg = c.g6, bg = c.none })
-  hl("NvimTreeNormal", { fg = c.g6, bg = c.none })
+  hl("NeoTreeNormal", { fg = c.neutral, bg = c.none })
+  hl("NeoTreeNormalNC", { fg = c.neutral, bg = c.none })
+  hl("NvimTreeNormal", { fg = c.neutral, bg = c.none })
   -- icons default-link to Directory (kept vivid blue globally for netrw/telescope),
   -- so grey them out here to actually match Mono's flat tree look.
-  hl("NeoTreeDirectoryIcon", { fg = c.g6, bg = c.none })
-  hl("NeoTreeFileIcon", { fg = c.g6, bg = c.none })
+  hl("NeoTreeDirectoryIcon", { fg = c.neutral, bg = c.none })
+  hl("NeoTreeFileIcon", { fg = c.neutral, bg = c.none })
   hl("WhichKey", { fg = c.g10 })
   hl("WhichKeyGroup", { fg = c.g8 })
   hl("WhichKeyDesc", { fg = c.fg })
