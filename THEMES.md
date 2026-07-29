@@ -1,5 +1,46 @@
 # Theme variations
 
+## Quick reference (read this first)
+
+**Switch preset:**
+```sh
+~/.config/theme                # show what's active right now
+~/.config/theme nightsea       # dark black/blue + amber string accent
+~/.config/theme mono           # pure grey/white, no hue anywhere
+~/.config/theme catppuccin     # the original theme, pre-mono/nightsea
+```
+Not on `$PATH` — call by full path, or alias/add it yourself. Auto-reloads
+tmux. **ghostty needs `cmd+r`, nvim/zed need a full quit+reopen** (colorscheme
+only applies at startup — `:so %` is not enough, this has bitten us before).
+After switching, `git add`+commit the 4 changed files if you want the switch
+to persist in history (the script only edits the working tree).
+
+**What's blue/amber vs plain grey (Nightsea only — Mono/Catppuccin unaffected):**
+- **Blue** (`#9bb9d7` / `#aac8e6` brighter) = "this should stand out": nvim
+  Type/Function, zed's matching syntax tokens + focused-border/pane
+  indicators, tmux's active-window indicator, ghostty's ANSI blue slot (4/12).
+- **Amber** (`#e0a660`) = string literals: nvim String, zed `syntax.string`,
+  ghostty's ANSI yellow slot (3/11).
+- **Everything else** (comments, operators, variables, UI chrome, git status,
+  diagnostics, the file tree/panel) = Mono's exact literal grey — no tint.
+
+**Shell integration (outside this repo, lives in `$HOME` directly — not
+git-tracked, not touched by `~/.config/theme`, easy to forget about):**
+- `~/.zshrc` — no Nightsea-specific config currently (a zsh-syntax-highlighting
+  `arg0` override was tried and reverted; nothing to maintain here right now).
+- `~/.p10k.zsh` — Powerlevel10k's `my_git_formatter()` (around line 361) sets
+  `clean='%2F'` (green) for the git-branch segment. Green (ANSI 2) isn't one of
+  Nightsea's accented ANSI slots, so it renders as Mono's plain grey. Change to
+  `%3F` (ANSI yellow → amber) if you want the branch segment tinted again.
+- `~/.claude/statusline-command.sh` — Claude Code's own statusline script; the
+  git-branch segment uses `${GREEN}` (also ANSI 2, same situation as above).
+- `~/.config/ccstatusline/settings.json` exists but **is not what renders
+  Claude Code's statusline** — `~/.claude/settings.json`'s `statusLine.command`
+  points at the bash script above instead. Don't edit ccstatusline expecting
+  it to do anything (this cost real time to figure out once already).
+
+---
+
 Three variations live side-by-side. **Nightsea** (dark black/blue) is active.
 **Mono** (pure black & white, greyscale-only, no hue) and **Catppuccin Mocha**
 (original) are kept intact — every switch below is one line, nothing is
@@ -20,7 +61,18 @@ see `docs/superpowers/specs/2026-07-29-nightsea-theme-design.md` for the
 original design rationale (its formula section is superseded by this one).
 Transparency/blur is kept in both.
 
+**Exception:** almost everything runs through the formula above, but not
+Type/Function — their original ramp position (`v'` near 244-254) landed in
+the curve's near-255 zone, where `d` deliberately tapers to ~0 so true white
+survives. That made the one tier meant to stand out read as white instead of
+blue. Those two got hand-picked values instead (`#9bb9d7` / `#aac8e6`), and
+every place they're reused (see Quick Reference above) copies those two
+literal values rather than re-deriving them.
+
 ## Switch a single tool
+
+`~/.config/theme <preset>` does all 4 rows below at once — this table is for
+switching just one tool by hand, or for understanding what the script does.
 
 | Tool | File | Nightsea (active) | Mono | Catppuccin |
 |------|------|--------------------|------|------------|
