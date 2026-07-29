@@ -1,21 +1,31 @@
 # Theme variations
 
-Two variations live side-by-side. **Mono** (pure black & white, greyscale-only,
-no hue) is active. **Catppuccin Mocha** (original) is kept intact — every switch
-below is one line, nothing is deleted.
+Three variations live side-by-side. **Nightsea** (dark black/blue) is active.
+**Mono** (pure black & white, greyscale-only, no hue) and **Catppuccin Mocha**
+(original) are kept intact — every switch below is one line, nothing is
+deleted.
 
-Grey ramp shared by all tools: `#000000 → 404040 → 606060 → 808080 → a0a0a0 →
-d0d0d0 → e0e0e0 → f0f0f0 → #ffffff`. Transparency/blur is kept in Mono.
+Grey ramp shared by Mono: `#000000 → 404040 → 606060 → 808080 → a0a0a0 →
+d0d0d0 → e0e0e0 → f0f0f0 → #ffffff`. Nightsea uses the same lightness stops,
+hue-shifted to `HSL(210°, 22%, L)` — derived from the wallpaper
+(`~/Pictures/wallpapers/wallhaven-po75pp.jpg`), see
+`docs/superpowers/specs/2026-07-29-nightsea-theme-design.md` for the formula.
+Transparency/blur is kept in both.
 
 ## Switch a single tool
 
-| Tool | File | Mono | Revert to Catppuccin |
-|------|------|------|----------------------|
-| **ghostty** | `ghostty/config` | `theme = "studio1804-monochrome.conf"` | comment that line, uncomment `theme = "Catppuccin Mocha"` |
-| **zed** | `zed/settings.json` | `"dark": "Mono"` | `"dark": "Catppuccin Mocha"` |
-| **nvim** | `nvim/lua/plugins/ui.lua` | `local MONO = true` | `local MONO = false` |
-| **tmux** | `tmux/tmux.conf` | keep the `MONO override` block at the bottom | delete that block |
-| **Claude Code** | `~/.claude/settings.json` | `"theme": "dark-ansi"` (routes through ghostty palette) | `"theme": "dark"` |
+| Tool | File | Nightsea (active) | Mono | Catppuccin |
+|------|------|--------------------|------|------------|
+| **ghostty** | `ghostty/config` | `theme = "nightsea.conf"` | `theme = "studio1804-monochrome.conf"` | `theme = "Catppuccin Mocha"` |
+| **zed** | `zed/settings.json` | `"dark": "Nightsea"` | `"dark": "Mono"` | `"dark": "Catppuccin Mocha"` |
+| **nvim** | `nvim/lua/plugins/ui.lua` | `local THEME = "nightsea"` | `local THEME = "mono"` | `local THEME = "catppuccin"` |
+| **tmux** | `tmux/tmux.conf` | uncomment `NIGHTSEA override`, comment `MONO override` | uncomment `MONO override`, comment `NIGHTSEA override` | comment out both override blocks |
+| **Claude Code** | `~/.claude/settings.json` | `"theme": "dark-ansi"` (routes through ghostty palette, no per-theme change needed) | same | same |
+
+Only one of `ghostty/config`'s `theme = ` lines, one of `zed/settings.json`'s
+`"dark":` values, and one tmux override block should be active at a time —
+the others in each row stay present but disabled, exactly like Mono/Catppuccin
+did before Nightsea existed.
 
 Reload after switching:
 - ghostty: `cmd+r`
@@ -30,6 +40,8 @@ Reload after switching:
 git reset --hard acf8864          # baseline commit "snapshot before mono ricing"
 # or undo just the mono commit
 git revert cb04c29
+# back to Mono (pre-nightsea) — replace <HEAD-of-nightsea-work> with this work's actual final commit once all Nightsea tasks land
+git revert 8089b2e^..<HEAD-of-nightsea-work>
 ```
 
 ## Files that make up the Mono variation
@@ -38,6 +50,13 @@ git revert cb04c29
 - `zed/themes/mono.json` — zed theme (greyscale syntax, transparent bg for blur)
 - `nvim/lua/config/mono.lua` — hand-rolled colorscheme matching the ghostty ramp
 - tmux `@thm_*` remap block in `tmux/tmux.conf`
+
+## Files that make up the Nightsea variation
+
+- `ghostty/themes/nightsea.conf` — ghostty palette (hue-shifted from studio1804-monochrome.conf)
+- `zed/themes/nightsea.json` — zed theme (hue-shifted from mono.json)
+- `nvim/lua/config/nightsea.lua` — nvim colorscheme (hue-shifted from mono.lua)
+- tmux `NIGHTSEA override` block in `tmux/tmux.conf` (commented out unless active)
 
 ## fastfetch cat logo
 
