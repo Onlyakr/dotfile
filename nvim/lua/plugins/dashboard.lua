@@ -32,11 +32,20 @@ return {
 			dashboard.section.buttons.opts.hl = "AlphaButtons"
 			dashboard.section.footer.opts.hl = "AlphaFooter"
 
-			-- follow the active theme: greyscale under mono, catppuccin otherwise
+			-- follow the active theme: greyscale under mono, blue under nightsea,
+			-- catppuccin otherwise.
+			-- ponytail: literals duplicated from config.mono/config.nightsea's g11/g8/g6
+			-- (matching mono's existing pattern here) rather than requiring those modules
+			-- and exposing a color accessor — upgrade to a shared accessor if this drifts
+			-- out of sync again after a future nightsea curve tweak.
 			if vim.g.colors_name == "mono" then
 				vim.api.nvim_set_hl(0, "AlphaHeader",  { fg = "#e0e0e0" })
 				vim.api.nvim_set_hl(0, "AlphaButtons", { fg = "#a0a0a0" })
 				vim.api.nvim_set_hl(0, "AlphaFooter",  { fg = "#606060" })
+			elseif vim.g.colors_name == "nightsea" then
+				vim.api.nvim_set_hl(0, "AlphaHeader",  { fg = "#e9f4ff" })
+				vim.api.nvim_set_hl(0, "AlphaButtons", { fg = "#97b4d1" })
+				vim.api.nvim_set_hl(0, "AlphaFooter",  { fg = "#657483" })
 			else
 				vim.api.nvim_set_hl(0, "AlphaHeader",  { fg = "#cba6f7" }) -- mauve
 				vim.api.nvim_set_hl(0, "AlphaButtons", { fg = "#89b4fa" }) -- blue
