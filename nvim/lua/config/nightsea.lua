@@ -24,8 +24,11 @@ local c = {
   g8 = "#a0a0a0", -- operator
   g9 = "#c0c0c0", -- constants / numbers
   g10 = "#d0d0d0", -- variables / identifiers
-  g11 = "#e9f4ff", -- types (blue accent, stands out)
-  g12 = "#fdfeff", -- functions (blue accent, stands out)
+  -- g11/g12 used to be near-white (v pushed into the curve's near-255 zone,
+  -- where chroma is deliberately ~0 so pure white survives) — picked further
+  -- from that edge instead, same hue/curve, clearly blue not washed-out.
+  g11 = "#9bb9d7", -- types (blue accent, stands out)
+  g12 = "#aac8e6", -- functions (blue accent, stands out, brightest/boldest)
   white = "#ffffff",
   amber = "#e0a660", -- string literals only (duotone accent, contrast 9.8:1 on black)
   neutral = "#c0c0c0", -- true achromatic grey (matches zed panel icon/text.muted), tree only
