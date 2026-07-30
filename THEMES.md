@@ -16,24 +16,71 @@ After switching, `git add`+commit the 4 changed files if you want the switch
 to persist in history (the script only edits the working tree).
 
 **What's blue/amber vs plain grey (Nightsea only — Mono/Catppuccin unaffected):**
-- **Blue** (`#9bb9d7` / `#aac8e6` brighter) = "this should stand out": nvim
-  Type/Function, zed's matching syntax tokens + focused-border/pane
+- **Blue** (`#9bb9d7`, brighter `#aac8e6` for Function) = "this should stand
+  out": nvim Type/Function, zed's matching syntax tokens + focused-border/pane
   indicators, tmux's active-window indicator, ghostty's ANSI blue slot (4/12).
+  Also the zsh prompt: Powerlevel10k's git-branch segment when repo is dirty
+  (`modified='%3F'`/`untracked='%4F'` — untouched, was already colored) and
+  the command name you type (`~/.zshrc`'s `ZSH_HIGHLIGHT_STYLES[arg0]`).
 - **Amber** (`#e0a660`) = string literals: nvim String, zed `syntax.string`,
-  ghostty's ANSI yellow slot (3/11).
+  ghostty's ANSI yellow slot (3/11). Also the Powerlevel10k git-branch segment
+  when the repo is clean (icon + branch name + text, both driven by ANSI
+  yellow — see below) and the double/single-quoted arguments you type at
+  the CLI (zsh-syntax-highlighting's default is already yellow, no config
+  needed for that part).
 - **Everything else** (comments, operators, variables, UI chrome, git status,
-  diagnostics, the file tree/panel) = Mono's exact literal grey — no tint.
+  diagnostics) = Mono's exact literal grey — no tint. The nvim file tree/zed
+  panel are a partial exception — see below, they're brighter than plain
+  Mono on purpose.
+
+**nvim file tree vs zed panel — both grey, deliberately brighter than Mono:**
+- `nvim/lua/config/nightsea.lua`'s `c.neutral = "#f0f0f0"` (not Mono's
+  `#c0c0c0`) applied to `NeoTreeNormal`/`NeoTreeNormalNC`/`NvimTreeNormal`/
+  `NeoTreeDirectoryIcon`/`NeoTreeFileIcon`/`NeoTreeDirectoryName` — chosen to
+  match zed's panel brightness exactly, not Mono's.
+- **`NeoTreeDirectoryName` needs its own override** — unlike `NeoTreeFileName`
+  (no default link, just inherits plain text), it links to the global
+  `Directory` group by default, which stays blue (`g11`) for netrw/telescope.
+  Miss this override and directory *names* stay blue while file names/icons
+  go grey — happened once already.
+- **File icon colors need a 3rd override**, not just `NeoTreeFileIcon`:
+  `nvim-web-devicons` (with `color_icons = false`, set in the user's own
+  `navigation.lua`) collapses every file's icon highlight to a single shared
+  group, `DevIconDefault` — which still carries devicons' own hardcoded color
+  (`#6d8086`) unless something overrides it. Worse, devicons re-applies that
+  color itself the moment it finishes lazy-loading (its own `ColorScheme`
+  autocmd, registered at its own setup time) — which happens *after* our
+  theme's one-time startup setup, silently clobbering any override set
+  upfront. Fixed with a `User LazyLoad` autocmd keyed to `nvim-web-devicons`
+  that re-applies `DevIconDefault` right after devicons finishes loading, so
+  our color wins regardless of plugin load order.
+- zed has no per-panel icon token like nvim's — its `icon`/`icon.muted`/
+  `icon.disabled`/`text.muted` are one shared value used for the panel *and*
+  buttons/tabs/status bar app-wide. Brightened to `#f0f0f0`/`#c0c0c0`/
+  `#808080`/`#c0c0c0` on purpose (whiter than Mono's own values) per explicit
+  request — don't "fix" these back to literal Mono values, that was already
+  tried and reverted once.
 
 **Shell integration (outside this repo, lives in `$HOME` directly — not
 git-tracked, not touched by `~/.config/theme`, easy to forget about):**
-- `~/.zshrc` — no Nightsea-specific config currently (a zsh-syntax-highlighting
-  `arg0` override was tried and reverted; nothing to maintain here right now).
-- `~/.p10k.zsh` — Powerlevel10k's `my_git_formatter()` (around line 361) sets
-  `clean='%2F'` (green) for the git-branch segment. Green (ANSI 2) isn't one of
-  Nightsea's accented ANSI slots, so it renders as Mono's plain grey. Change to
-  `%3F` (ANSI yellow → amber) if you want the branch segment tinted again.
-- `~/.claude/statusline-command.sh` — Claude Code's own statusline script; the
-  git-branch segment uses `${GREEN}` (also ANSI 2, same situation as above).
+- `~/.zshrc` — `ZSH_HIGHLIGHT_STYLES[arg0]='fg=blue,bold'`, set *before*
+  `source $ZSH/oh-my-zsh.sh` (the plugin only sets defaults for keys not
+  already set, so order matters). Colors the command name you type, if it's
+  recognized. Quoted string arguments are already yellow/amber by the
+  plugin's own default — nothing to configure there.
+- `~/.p10k.zsh` — two separate settings control the Powerlevel10k git-branch
+  segment, both currently ANSI yellow (amber):
+  - `POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_COLOR=3` (~line 490) — the segment's
+    icon (the octocat-ish glyph before the branch name).
+  - `my_git_formatter()`'s `clean='%3F'` (~line 374) — the branch *name* text
+    when the repo has no changes. `modified`/`untracked` (yellow/blue) were
+    already colored by Powerlevel10k's own defaults, untouched.
+  These are two independent settings for what looks like one visual element —
+  missing one leaves half the segment grey. Learned that the hard way once.
+- `~/.claude/statusline-command.sh` — Claude Code's own statusline script,
+  **left as plain Mono grey on purpose** (`${GREEN}` for the git-branch
+  segment, i.e. ANSI 2, not one of Nightsea's accented slots) — explicitly
+  requested to stay unstyled while the shell prompt above gets the accent.
 - `~/.config/ccstatusline/settings.json` exists but **is not what renders
   Claude Code's statusline** — `~/.claude/settings.json`'s `statusLine.command`
   points at the bash script above instead. Don't edit ccstatusline expecting
