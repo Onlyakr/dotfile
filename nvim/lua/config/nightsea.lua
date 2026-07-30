@@ -245,6 +245,21 @@ function M.setup()
   hl("NeoTreeDirectoryIcon", { fg = c.neutral, bg = c.none })
   hl("NeoTreeFileIcon", { fg = c.neutral, bg = c.none })
   hl("NeoTreeDirectoryName", { fg = c.neutral, bg = c.none })
+  -- nvim-web-devicons (color_icons = false) collapses every file's icon
+  -- highlight to this one shared group instead of NeoTreeFileIcon — it still
+  -- carries devicons' own hardcoded color (#6d8086) unless overridden here.
+  -- devicons loads lazily and re-applies that color itself once it does
+  -- (a ColorScheme autocmd, registered at its own setup time), so setting it
+  -- once here isn't enough — re-apply after devicons finishes loading too.
+  hl("DevIconDefault", { fg = c.neutral, bg = c.none })
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "LazyLoad",
+    callback = function(ev)
+      if ev.data == "nvim-web-devicons" then
+        hl("DevIconDefault", { fg = c.neutral, bg = c.none })
+      end
+    end,
+  })
   hl("WhichKey", { fg = c.g10 })
   hl("WhichKeyGroup", { fg = c.g8 })
   hl("WhichKeyDesc", { fg = c.fg })
