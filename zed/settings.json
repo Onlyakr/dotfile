@@ -8,10 +8,6 @@
       "type": "registry",
     },
     "claude-acp": {
-      "default_config_options": {
-        "mode": "bypassPermissions",
-        "model": "sonnet"
-      },
       "type": "registry",
     },
   },
