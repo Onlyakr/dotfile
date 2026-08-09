@@ -19,7 +19,6 @@ vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 vim.opt.signcolumn = "yes"
-vim.opt.colorcolumn = "100"
 vim.opt.showmatch = true
 vim.opt.cmdheight = 1
 vim.opt.completeopt = "menuone,noinsert,noselect"
