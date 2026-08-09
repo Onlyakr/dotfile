@@ -11,6 +11,10 @@ return {
       require("mini.trailspace").setup({})
       require("mini.bufremove").setup({})
       require("mini.icons").setup({})
+      -- mono icons: link every mini.icons color group to Normal (mini.icons has no color-off flag)
+      for _, c in ipairs({ "Azure", "Blue", "Cyan", "Green", "Grey", "Orange", "Purple", "Red", "Yellow" }) do
+        vim.api.nvim_set_hl(0, "MiniIcons" .. c, { link = "Normal" })
+      end
     end,
   },
   {

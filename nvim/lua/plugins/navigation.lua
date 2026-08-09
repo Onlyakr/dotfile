@@ -2,7 +2,7 @@ return {
   {
     "ibhagwan/fzf-lua",
     config = function()
-      require("fzf-lua").setup({})
+      require("fzf-lua").setup({ defaults = { color_icons = false } })
       local fzf = require("fzf-lua")
       vim.keymap.set("n", "<leader>ff", fzf.files,                { desc = "Find files" })
       vim.keymap.set("n", "<leader>fg", fzf.live_grep,            { desc = "Live grep" })
@@ -12,6 +12,10 @@ return {
       vim.keymap.set("n", "<leader>fX", fzf.diagnostics_workspace,{ desc = "Workspace diagnostics" })
       vim.keymap.set("n", "<leader>ft", "<Cmd>TodoFzfLua<CR>",    { desc = "TODOs" })
     end,
+  },
+  {
+    "nvim-tree/nvim-web-devicons",
+    opts = { color_icons = false },
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
