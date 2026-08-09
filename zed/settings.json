@@ -153,9 +153,9 @@
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    // revert: "dark": "Catppuccin Mocha",
+    "dark": "Catppuccin Mocha",
     // revert: "dark": "Mono",
-    "dark": "Nightsea",
+    // revert: "dark": "Nightsea",
   },
   "experimental.theme_overrides": {
     "background.appearance": "blurred",
