@@ -19,3 +19,5 @@
 # tmux plugins (managed by tpm)
 tmux/plugins/
 nvim/nvim.log
+# vim.pack state; this config uses lazy.nvim
+nvim/nvim-pack-lock.json
