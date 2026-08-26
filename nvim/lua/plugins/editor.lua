@@ -1,6 +1,7 @@
 return {
   {
     "echasnovski/mini.nvim",
+    event = "VeryLazy",
     config = function()
       require("mini.ai").setup({})
       require("mini.comment").setup({})
@@ -34,9 +35,11 @@ return {
         { "<leader>c",  desc  = "Clear search" },
         { "<leader>e",  desc  = "File explorer" },
         { "<leader>t",  desc  = "Terminal" },
+        { "<leader>u",  group = "Toggle (UI)" },
         { "<leader>w",  desc  = "Save" },
         { "<leader>q",  desc  = "Quit" },
-        { "<leader>td", desc  = "Toggle diagnostics" },
+        { "<leader>ud", desc  = "Toggle diagnostics" },
+        { "<leader>X",  desc  = "Delete without yanking" },
         { "<leader>pa", desc  = "Copy file path" },
         { "<leader>ca", desc  = "Code action" },
         { "<leader>rn", desc  = "Rename symbol" },

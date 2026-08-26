@@ -53,10 +53,11 @@ return {
         { desc = "Harpoon add" })
       vim.keymap.set("n", "<leader>hh", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
         { desc = "Harpoon list" })
-      vim.keymap.set("n", "<C-1>", function() harpoon:list():select(1) end, { desc = "Harpoon file 1" })
-      vim.keymap.set("n", "<C-2>", function() harpoon:list():select(2) end, { desc = "Harpoon file 2" })
-      vim.keymap.set("n", "<C-3>", function() harpoon:list():select(3) end, { desc = "Harpoon file 3" })
-      vim.keymap.set("n", "<C-4>", function() harpoon:list():select(4) end, { desc = "Harpoon file 4" })
+      -- <leader>N, not <C-N>: tmux drops Ctrl+digit unless extended-keys is on
+      for i = 1, 4 do
+        vim.keymap.set("n", "<leader>" .. i, function() harpoon:list():select(i) end,
+          { desc = "Harpoon file " .. i })
+      end
     end,
   },
 }

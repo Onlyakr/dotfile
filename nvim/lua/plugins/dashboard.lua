@@ -61,8 +61,8 @@ return {
 					vim.opt.laststatus = 0
 				end,
 			})
-			vim.api.nvim_create_autocmd("BufUnload", {
-				buffer = 0,
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "AlphaClosed",
 				callback = function()
 					vim.opt.laststatus = 3
 				end,

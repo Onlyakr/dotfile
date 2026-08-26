@@ -33,33 +33,46 @@ return {
           if not client then return end
           local bufnr = ev.buf
           local opts = { noremap = true, silent = true, buffer = bufnr }
-          local ok, fzf = pcall(require, "fzf-lua")
-          if not ok then return end
+          local function map(lhs, rhs, desc)
+            vim.keymap.set("n", lhs, rhs, vim.tbl_extend("force", opts, { desc = desc }))
+          end
 
-          vim.keymap.set("n", "<leader>gd", function() fzf.lsp_definitions({ jump_to_single_result = true }) end, vim.tbl_extend("force", opts, { desc = "Go to definition" }))
-          vim.keymap.set("n", "<leader>gD", vim.lsp.buf.definition, vim.tbl_extend("force", opts, { desc = "Definition (native)" }))
-          vim.keymap.set("n", "<leader>gS", function() vim.cmd("vsplit") vim.lsp.buf.definition() end, vim.tbl_extend("force", opts, { desc = "Definition in split" }))
-          vim.keymap.set("n", "<leader>gr", fzf.lsp_references, vim.tbl_extend("force", opts, { desc = "References" }))
-          vim.keymap.set("n", "<leader>gi", fzf.lsp_implementations, vim.tbl_extend("force", opts, { desc = "Implementations" }))
-          vim.keymap.set("n", "<leader>gt", fzf.lsp_typedefs, vim.tbl_extend("force", opts, { desc = "Type definitions" }))
-          vim.keymap.set("n", "<leader>gs", fzf.lsp_document_symbols, vim.tbl_extend("force", opts, { desc = "Document symbols" }))
-          vim.keymap.set("n", "<leader>gw", fzf.lsp_workspace_symbols, vim.tbl_extend("force", opts, { desc = "Workspace symbols" }))
-          vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code action" }))
-          vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "Rename" }))
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Hover docs" }))
-          vim.keymap.set("n", "<leader>d", function() vim.diagnostic.open_float({ scope = "cursor" }) end, vim.tbl_extend("force", opts, { desc = "Cursor diagnostics" }))
-          vim.keymap.set("n", "<leader>D", function() vim.diagnostic.open_float({ scope = "line" }) end, vim.tbl_extend("force", opts, { desc = "Line diagnostics" }))
-          vim.keymap.set("n", "<leader>nd", function() vim.diagnostic.jump({ count = 1 }) end, vim.tbl_extend("force", opts, { desc = "Next diagnostic" }))
-          vim.keymap.set("n", "<leader>pd", function() vim.diagnostic.jump({ count = -1 }) end, vim.tbl_extend("force", opts, { desc = "Prev diagnostic" }))
+          map("<leader>gD", vim.lsp.buf.definition, "Definition (native)")
+          map("<leader>gS", function() vim.cmd("vsplit") vim.lsp.buf.definition() end, "Definition in split")
+          map("<leader>ca", vim.lsp.buf.code_action, "Code action")
+          map("<leader>rn", vim.lsp.buf.rename, "Rename")
+          map("K", function() vim.lsp.buf.hover({ border = "rounded" }) end, "Hover docs")
+
+          -- picker-backed maps only: keep the rest working if fzf-lua is missing
+          local ok, fzf = pcall(require, "fzf-lua")
+          if ok then
+            map("<leader>gd", function() fzf.lsp_definitions({ jump_to_single_result = true }) end, "Go to definition")
+            map("<leader>gr", fzf.lsp_references, "References")
+            map("<leader>gi", fzf.lsp_implementations, "Implementations")
+            map("<leader>gt", fzf.lsp_typedefs, "Type definitions")
+            map("<leader>gs", fzf.lsp_document_symbols, "Document symbols")
+            map("<leader>gw", fzf.lsp_workspace_symbols, "Workspace symbols")
+          else
+            map("<leader>gd", vim.lsp.buf.definition, "Go to definition")
+            map("<leader>gr", vim.lsp.buf.references, "References")
+            map("<leader>gi", vim.lsp.buf.implementation, "Implementations")
+            map("<leader>gt", vim.lsp.buf.type_definition, "Type definitions")
+            map("<leader>gs", vim.lsp.buf.document_symbol, "Document symbols")
+            map("<leader>gw", vim.lsp.buf.workspace_symbol, "Workspace symbols")
+          end
+          map("<leader>d", function() vim.diagnostic.open_float({ scope = "cursor" }) end, "Cursor diagnostics")
+          map("<leader>D", function() vim.diagnostic.open_float({ scope = "line" }) end, "Line diagnostics")
+          map("<leader>nd", function() vim.diagnostic.jump({ count = 1 }) end, "Next diagnostic")
+          map("<leader>pd", function() vim.diagnostic.jump({ count = -1 }) end, "Prev diagnostic")
 
           if client:supports_method("textDocument/codeAction", bufnr) then
-            vim.keymap.set("n", "<leader>oi", function()
+            map("<leader>oi", function()
               vim.lsp.buf.code_action({
                 context = { only = { "source.organizeImports" }, diagnostics = {} },
                 apply = true,
                 bufnr = bufnr,
               })
-            end, vim.tbl_extend("force", opts, { desc = "Organize imports" }))
+            end, "Organize imports")
           end
         end,
       })
@@ -79,22 +92,13 @@ return {
         severity_sort = true,
         float = {
           border = "rounded",
-          source = "always",
+          source = true,
           header = "",
           prefix = "",
           focusable = false,
           style = "minimal",
         },
       })
-
-      do
-        local orig = vim.lsp.util.open_floating_preview
-        function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-          opts = opts or {}
-          opts.border = opts.border or "rounded"
-          return orig(contents, syntax, opts, ...)
-        end
-      end
 
       vim.lsp.config("lua_ls", {
         settings = {

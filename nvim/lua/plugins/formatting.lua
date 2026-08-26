@@ -19,7 +19,7 @@ return {
         },
         format_on_save = {
           timeout_ms = 2000,
-          lsp_fallback = false,
+          lsp_format = "never",
         },
       })
     end,

@@ -51,7 +51,7 @@ local function make_float(st, cmd)
 
   local lines = vim.api.nvim_buf_get_lines(st.buf, 0, -1, false)
   local is_empty = #lines == 0 or (#lines == 1 and lines[1] == "")
-  if is_empty then vim.fn.termopen(cmd) end
+  if is_empty then vim.fn.jobstart(cmd, { term = true }) end
 
   st.is_open = true
   vim.cmd("startinsert")

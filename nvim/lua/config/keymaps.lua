@@ -13,7 +13,7 @@ map("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
 map("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 
 map("x", "<leader>p", '"_dP', { desc = "Paste without yanking" })
-map({ "n", "v" }, "<leader>x", '"_d', { desc = "Delete without yanking" })
+map({ "n", "v" }, "<leader>X", '"_d', { desc = "Delete without yanking" })
 map("n", "J", "mzJ`z", { desc = "Join lines (keep cursor)" })
 
 map("n", "<A-Down>", "<Cmd>m .+1<CR>==", { desc = "Move line down" })
@@ -49,7 +49,7 @@ map("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", { desc = "Increase width" }
 
 map("n", "<leader>w", "<Cmd>w<CR>", { desc = "Save" })
 map("n", "<leader>q", "<Cmd>q<CR>", { desc = "Quit" })
-map("n", "<leader>td", function()
+map("n", "<leader>ud", function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
 end, { desc = "Toggle diagnostics" })
 map("n", "<leader>pa", function()
