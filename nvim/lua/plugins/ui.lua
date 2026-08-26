@@ -45,7 +45,7 @@ return {
 				options = {
 					theme = (THEME == "nightsea" and require("config.nightsea").lualine())
 						or (THEME == "mono" and require("config.mono").lualine())
-						or "catppuccin",
+						or "catppuccin-nvim",
 					globalstatus = true,
 					component_separators = { left = "│", right = "│" },
 					section_separators = { left = "", right = "" },
