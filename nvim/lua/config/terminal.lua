@@ -1,10 +1,12 @@
 local augroup = vim.api.nvim_create_augroup("TerminalConfig", { clear = true })
 
+-- plain :terminal buffers: drop them once the job exits cleanly.
+-- args.buf, not 0: the job can finish while another buffer is current.
 vim.api.nvim_create_autocmd("TermClose", {
   group = augroup,
-  callback = function()
-    if vim.v.event.status == 0 then
-      vim.api.nvim_buf_delete(0, {})
+  callback = function(args)
+    if vim.v.event.status == 0 and vim.api.nvim_buf_is_valid(args.buf) then
+      vim.api.nvim_buf_delete(args.buf, { force = true })
     end
   end,
 })
@@ -18,15 +20,28 @@ vim.api.nvim_create_autocmd("TermOpen", {
   end,
 })
 
+local function close_float(st)
+  if st.win and vim.api.nvim_win_is_valid(st.win) then
+    vim.api.nvim_win_close(st.win, false)
+  end
+  st.win = nil
+  st.is_open = false
+end
+
 local function make_float(st, cmd)
   if st.is_open and st.win and vim.api.nvim_win_is_valid(st.win) then
-    vim.api.nvim_win_close(st.win, false)
-    st.is_open = false
+    close_float(st)
     return
   end
 
-  if not st.buf or not vim.api.nvim_buf_is_valid(st.buf) then
+  -- a buffer whose job already exited (any status) is dead: start fresh
+  local job_alive = st.job and vim.fn.jobwait({ st.job }, 0)[1] == -1
+  if not st.buf or not vim.api.nvim_buf_is_valid(st.buf) or not job_alive then
+    if st.buf and vim.api.nvim_buf_is_valid(st.buf) then
+      vim.api.nvim_buf_delete(st.buf, { force = true })
+    end
     st.buf = vim.api.nvim_create_buf(false, true)
+    st.job = nil
     vim.bo[st.buf].bufhidden = "hide"
   end
 
@@ -49,9 +64,25 @@ local function make_float(st, cmd)
   vim.api.nvim_set_hl(0, "FloatingTermNormal", { bg = "none" })
   vim.api.nvim_set_hl(0, "FloatingTermBorder", { bg = "none" })
 
-  local lines = vim.api.nvim_buf_get_lines(st.buf, 0, -1, false)
-  local is_empty = #lines == 0 or (#lines == 1 and lines[1] == "")
-  if is_empty then vim.fn.jobstart(cmd, { term = true }) end
+  if not st.job then
+    st.job = vim.fn.jobstart(cmd, {
+      term = true,
+      on_exit = function()
+        -- float terminals go away with their job regardless of exit status
+        close_float(st)
+        if st.buf and vim.api.nvim_buf_is_valid(st.buf) then
+          vim.api.nvim_buf_delete(st.buf, { force = true })
+        end
+        st.buf = nil
+        st.job = nil
+      end,
+    })
+    -- buffer-local, double tap: a single <Esc> still reaches the program
+    -- (lazygit uses it for back/cancel, zsh vi-mode for normal mode).
+    vim.keymap.set("t", "<Esc><Esc>", function()
+      close_float(st)
+    end, { buffer = st.buf, silent = true, desc = "Hide floating terminal" })
+  end
 
   st.is_open = true
   vim.cmd("startinsert")
@@ -60,30 +91,18 @@ local function make_float(st, cmd)
     buffer = st.buf,
     once = true,
     callback = function()
-      if st.is_open and st.win and vim.api.nvim_win_is_valid(st.win) then
-        vim.api.nvim_win_close(st.win, false)
-        st.is_open = false
-      end
+      close_float(st)
     end,
   })
 end
 
-local shell_state = { buf = nil, win = nil, is_open = false }
-local lazygit_state = { buf = nil, win = nil, is_open = false }
+local shell_state = { buf = nil, win = nil, job = nil, is_open = false }
+local lazygit_state = { buf = nil, win = nil, job = nil, is_open = false }
 
 vim.keymap.set("n", "<leader>t", function()
-  make_float(shell_state, os.getenv("SHELL"))
+  make_float(shell_state, os.getenv("SHELL") or vim.o.shell)
 end, { desc = "Toggle floating terminal" })
 
 vim.keymap.set("n", "<leader>gg", function()
   make_float(lazygit_state, "lazygit")
 end, { desc = "Toggle lazygit" })
-
-vim.keymap.set("t", "<Esc>", function()
-  for _, st in ipairs({ shell_state, lazygit_state }) do
-    if st.is_open and st.win and vim.api.nvim_win_is_valid(st.win) then
-      vim.api.nvim_win_close(st.win, false)
-      st.is_open = false
-    end
-  end
-end, { noremap = true, silent = true, desc = "Close floating terminal" })

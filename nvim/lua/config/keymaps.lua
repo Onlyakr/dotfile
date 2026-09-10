@@ -3,10 +3,14 @@ vim.g.maplocalleader = " "
 
 local map = vim.keymap.set
 
-map("n", "j", function() return vim.v.count == 0 and "gj" or "j" end, { expr = true, silent = true, desc = "Down (wrap-aware)" })
-map("n", "k", function() return vim.v.count == 0 and "gk" or "k" end, { expr = true, silent = true, desc = "Up (wrap-aware)" })
+map("n", "j", function()
+  return vim.v.count == 0 and "gj" or "j"
+end, { expr = true, silent = true, desc = "Down (wrap-aware)" })
+map("n", "k", function()
+  return vim.v.count == 0 and "gk" or "k"
+end, { expr = true, silent = true, desc = "Up (wrap-aware)" })
 
-map("n", "<leader>c", "<Cmd>nohlsearch<CR>", { desc = "Clear search highlights" })
+map("n", "<Esc>", "<Cmd>nohlsearch<CR>", { desc = "Clear search highlights" })
 map("n", "n", "nzzzv", { desc = "Next result (centered)" })
 map("n", "N", "Nzzzv", { desc = "Prev result (centered)" })
 map("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
@@ -33,7 +37,11 @@ map("n", "<leader>bn", "<Cmd>bnext<CR>", { desc = "Next buffer" })
 map("n", "<leader>bp", "<Cmd>bprevious<CR>", { desc = "Prev buffer" })
 map("n", "<leader>bd", function()
   local ok, bufremove = pcall(require, "mini.bufremove")
-  if ok then bufremove.delete() else vim.cmd("bdelete") end
+  if ok then
+    bufremove.delete()
+  else
+    vim.cmd("bdelete")
+  end
 end, { desc = "Delete buffer" })
 
 map("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })

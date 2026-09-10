@@ -7,11 +7,25 @@ return {
       require("nvim-treesitter").setup({})
 
       local ensure_installed = {
-        "vim", "vimdoc", "lua",
-        "javascript", "typescript", "tsx",
-        "html", "css", "json", "markdown", "markdown_inline",
-        "bash", "python", "go", "rust", "c", "cpp",
-        "vue", "svelte",
+        "vim",
+        "vimdoc",
+        "lua",
+        "javascript",
+        "typescript",
+        "tsx",
+        "html",
+        "css",
+        "json",
+        "markdown",
+        "markdown_inline",
+        "bash",
+        "python",
+        "go",
+        "rust",
+        "c",
+        "cpp",
+        "vue",
+        "svelte",
       }
 
       local already = require("nvim-treesitter").get_installed()

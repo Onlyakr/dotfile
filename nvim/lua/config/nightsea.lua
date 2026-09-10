@@ -25,7 +25,7 @@ local c = {
   g9 = "#c0c0c0", -- constants / numbers
   g10 = "#d0d0d0", -- variables / identifiers
   -- g11/g12 used to be near-white (v pushed into the curve's near-255 zone,
-  -- where chroma is deliberately ~0 so pure white survives) — picked further
+  -- where chroma is deliberately ~0 so pure white survives). Picked further
   -- from that edge instead, same hue/curve, clearly blue not washed-out.
   g11 = "#9bb9d7", -- types (blue accent, stands out)
   g12 = "#aac8e6", -- functions (blue accent, stands out, brightest/boldest)
@@ -246,11 +246,11 @@ function M.setup()
   hl("NeoTreeFileIcon", { fg = c.neutral, bg = c.none })
   hl("NeoTreeDirectoryName", { fg = c.neutral, bg = c.none })
   -- nvim-web-devicons (color_icons = false) collapses every file's icon
-  -- highlight to this one shared group instead of NeoTreeFileIcon — it still
+  -- highlight to this one shared group instead of NeoTreeFileIcon: it still
   -- carries devicons' own hardcoded color (#6d8086) unless overridden here.
   -- devicons loads lazily and re-applies that color itself once it does
   -- (a ColorScheme autocmd, registered at its own setup time), so setting it
-  -- once here isn't enough — re-apply after devicons finishes loading too.
+  -- once here isn't enough, so re-apply after devicons finishes loading too.
   hl("DevIconDefault", { fg = c.neutral, bg = c.none })
   vim.api.nvim_create_autocmd("User", {
     pattern = "LazyLoad",
