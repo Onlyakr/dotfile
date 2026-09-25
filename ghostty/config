@@ -60,8 +60,8 @@ theme = "Catppuccin Mocha"
 
 background = "#000000"
 # foreground = "#dddddd"
-background-opacity = 0.57
-background-blur = 65
+background-opacity = 0.3
+background-blur = 40
 font-family = "JetBrainsMonoNL Nerd Font"
 # font-family = "MesloLGS Nerd Font"
 font-size = 15
